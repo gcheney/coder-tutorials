@@ -1,0 +1,18 @@
+{
+  "name": "coder-tutorials",
+  "version": "1.0.0",
+  "description": "Coder Tutorials is an app where you can share tutorials on coding tricks and tips.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Glendon Cheney",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "ejs": "^2.3.4",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0"
+  }
+}
