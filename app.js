@@ -20,6 +20,8 @@ var homeRoutes = require('./routes/home');
 var DB_URL = process.env.DATABASE_URL || 'mongodb://localhost/coder_tutorials';
 mongoose.connect(DB_URL);
 
+// ------------------- USE ROUTES ------------------------ //
+app.use(homeRoutes);
 
 // ------------------- APP LISTEN ------------------------ //
 
