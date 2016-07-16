@@ -22,16 +22,18 @@ marked.setOptions({
 // LIST
 //GET: /tutorials
 router.get('/', function(req, res){
-    Tutorial.find({}, function(err, tutorials){
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('tutorials/index', { 
-                title: 'All Tutorials',
-                tutorials: tutorials
+    Tutorial.find({}) 
+            .sort({'createdOn': 'desc'})
+            .exec(function(err, tutorials){
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render('tutorials/index', { 
+                        title: 'All Tutorials',
+                        tutorials: tutorials
+                    });
+                }
             });
-        }
-    });
 });
 
 //CREATE
