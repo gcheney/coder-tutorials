@@ -4,7 +4,7 @@ var marked = require('marked');
 var Tutorial = require('../models/tutorial');
 var middleware = require('../middleware');
 
-
+// set options for marked
 marked.setOptions({
     renderer: new marked.Renderer(),
     gfm: true,
@@ -37,19 +37,22 @@ router.get('/', function(req, res){
 //CREATE
 //POST: /tutorials
 router.post('/', middleware.isAuthenticated, function(req, res){
-    //Get the data from the req
     var title = req.body.title;
-    var content = req.body.content;
+    var markdown = req.body.content;
     var author = {
         id: req.user._id,
         username: req.user.username
     };
     
-    //create tutorial object
+    //parse markdown into html before saving
+    var content = marked(markdown);
+    
+    //create tutorial object to save
     var newTutorial = { 
         title: title, 
         content: content, 
-        author: author
+        author: author,
+        markdown : markdown
     };
     
     //add new tutorial to the database
@@ -80,8 +83,6 @@ router.get('/:id', function(req, res){
                     console.log(err);
                     res.redirect('/');
                 } else {
-                    //parse markdown
-                    tutorial.content = marked(tutorial.content);
                     res.render('tutorials/view', { tutorial: tutorial });
                 }
             });
@@ -90,7 +91,7 @@ router.get('/:id', function(req, res){
 //EDIT tutorial ROUTE
 router.get('/:id/edit', middleware.checkTutorialOwnership, function(req, res){
     Tutorial.findById(req.params.id, function(err, tutorial){
-        if(err){
+        if (err) {
             console.log(err);
             res.redirect('back')
         }
@@ -99,9 +100,19 @@ router.get('/:id/edit', middleware.checkTutorialOwnership, function(req, res){
 });
 
 // UPDATE tutorial ROUTE
-router.put('/:id', middleware.checkTutorialOwnership, function(req, res){
-    Tutorial.findByIdAndUpdate(req.params.id, req.body.tutorial, function(err, tutorial){
-       if(err) {
+router.put('/:id', middleware.checkTutorialOwnership, function(req, res) {
+    var title = req.body.tutorial.title;
+    var markdown = req.body.tutorial.content;
+    var content = marked(markdown);
+    
+    var updatedTutorial = { 
+        title: title, 
+        content: content, 
+        markdown: markdown
+    };
+    
+    Tutorial.findByIdAndUpdate(req.params.id, updatedTutorial, function(err, tutorial) {
+       if (err) {
            console.log(err);
            res.redirect('/');
        } else {
@@ -114,7 +125,7 @@ router.put('/:id', middleware.checkTutorialOwnership, function(req, res){
 //DESTROY route
 router.delete('/:id', middleware.checkTutorialOwnership, function(req, res){
     Tutorial.findByIdAndRemove(req.params.id, function(err){
-        if(err){
+        if (err){
             console.log(err);
         }
         req.flash('success', 'Tutorial successfully deleted!');

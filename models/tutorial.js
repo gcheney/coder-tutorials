@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var tutorialSchema = new mongoose.Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
-    markdownContent: { type: String, required: true },
+    markdown: { type: String, required: true },
     createdOn: { type: Date, default: Date.now },
     author: {
         id : {
