@@ -19,5 +19,4 @@ var tutorialSchema = new mongoose.Schema({
         }]
 });
 
-//Database Model setup
 module.exports = mongoose.model('Tutorial', tutorialSchema);
