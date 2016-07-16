@@ -4,12 +4,12 @@ var User = require('../models/user');
 module.exports = function(app) {
     
     //view signup form
-    app.get('/signup', function(req, res){
+    app.get('/account/signup', function(req, res){
         res.render('account/signup');
     });
 
     //handle signup login
-    app.post('/signup', function(req, res){
+    app.post('/account/signup', function(req, res){
         var newUser = new User({username: req.body.username});
         User.register(newUser, req.body.password, function(err, user){
             if(err){
@@ -24,19 +24,19 @@ module.exports = function(app) {
     });
 
     //view login form
-    app.get('/login', function(req, res){
+    app.get('/account/login', function(req, res){
         res.render('account/login');
     });
 
     //login user
-    app.post('/login', passport.authenticate('local', { 
+    app.post('/account/login', passport.authenticate('local', { 
             successRedirect: '/',
             failureRedirect: 'account/login'
         }), function(req, res){ 
     });
 
     //logout route
-    app.get('/logout', function(req, res){
+    app.get('/account/logout', function(req, res){
         req.logout();
         req.flash('success', 'You have been successfully logged out!');
         res.redirect('/')

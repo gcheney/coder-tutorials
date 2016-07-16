@@ -20,8 +20,8 @@ marked.setOptions({
 module.exports = function(app) {
     
     // LIST
-    //GET: /tutorials
-    app.get('/', function(req, res){
+    // GET: /tutorials
+    app.get('/tutorials', function(req, res){
         Tutorial.find({}) 
                 .sort({'createdOn': 'desc'})
                 .exec(function(err, tutorials){
@@ -36,9 +36,9 @@ module.exports = function(app) {
                 });
     });
 
-    //CREATE
-    //POST: /tutorials
-    app.post('/', middleware.isAuthenticated, function(req, res){
+    // CREATE
+    // POST: /tutorials
+    app.post('/tutorials', middleware.isAuthenticated, function(req, res){
         var title = req.body.title;
         var markdown = req.body.content;
         var author = {
@@ -70,14 +70,14 @@ module.exports = function(app) {
 
 
     // NEW
-    //GET: /tutorials/new
-    app.get('/new', middleware.isAuthenticated, function(req, res){
+    // GET: /tutorials/new
+    app.get('/tutorials/new', middleware.isAuthenticated, function(req, res){
         res.render('tutorials/new');
     });
 
     // VIEW
     //GET: /tutorials/:id 
-    app.get('/:id', function(req, res){
+    app.get('/tutorials/:id', function(req, res){
         Tutorial.findById(req.params.id)
                 .populate('reviews')
                 .exec(function(err, tutorial){
@@ -90,8 +90,9 @@ module.exports = function(app) {
                 });
     });
 
-    //EDIT tutorial ROUTE
-    app.get('/:id/edit', middleware.checkTutorialOwnership, function(req, res){
+    // EDIT tutorial ROUTE
+    // GET: /tutorials/:id/edit
+    app.get('/tutorials/:id/edit', middleware.checkTutorialOwnership, function(req, res){
         Tutorial.findById(req.params.id, function(err, tutorial){
             if (err) {
                 console.log(err);
@@ -102,7 +103,8 @@ module.exports = function(app) {
     });
 
     // UPDATE tutorial ROUTE
-    app.put('/:id', middleware.checkTutorialOwnership, function(req, res) {
+    // PUT: /tutorials/:id
+    app.put('/tutorials/:id', middleware.checkTutorialOwnership, function(req, res) {
         var title = req.body.tutorial.title;
         var markdown = req.body.tutorial.content;
         var content = marked(markdown);
@@ -124,8 +126,9 @@ module.exports = function(app) {
         });
     });
 
-    //DESTROY route
-    app.delete('/:id', middleware.checkTutorialOwnership, function(req, res){
+    // DESTROY route
+    // DELETE: /tutorials/:id
+    app.delete('/tutorials/:id', middleware.checkTutorialOwnership, function(req, res){
         Tutorial.findByIdAndRemove(req.params.id, function(err){
             if (err){
                 console.log(err);

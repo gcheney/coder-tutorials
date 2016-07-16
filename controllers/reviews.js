@@ -6,7 +6,7 @@ module.exports = function(app) {
     
     // NEW REVIEW
     //GET: /tutorials/:id/reviews/new
-    app.get('/new', middleware.isAuthenticated, function(req, res){
+    app.get('/tutorials/:id/reviews/new', middleware.isAuthenticated, function(req, res){
         Tutorial.findById(req.params.id, function(err, tutorial){
             if(err){
                 console.log(err)
@@ -21,7 +21,7 @@ module.exports = function(app) {
 
     // CREATE NEW REVIEW
     //POST: /tutorials/:id/reviews/
-    app.post('/', middleware.isAuthenticated, function(req, res){
+    app.post('/tutorials/:id/reviews/', middleware.isAuthenticated, function(req, res){
         Tutorial.findById(req.params.id, function(err, tutorial){
            if (err){
                req.flash('error', 'Something went wrong. We will look into it.');
@@ -50,9 +50,9 @@ module.exports = function(app) {
         });
     });
 
-    // GET Review Edit Form
-    // tutorials/:id/reviews/:review_id/edit
-    app.get('/:review_id/edit', middleware.checkReviewOwnership, function(req, res) {
+    // Review Edit Form
+    // GET: tutorials/:id/reviews/:review_id/edit
+    app.get('/tutorials/:id/reviews/:review_id/edit', middleware.checkReviewOwnership, function(req, res) {
         Tutorial.findById(req.params.id, function(err, tutorial){
             if (err){
                 console.log(err);
@@ -68,8 +68,9 @@ module.exports = function(app) {
         });
     });
 
-    //UPDATE Review route
-    app.put('/:review_id', middleware.checkReviewOwnership, function(req, res){
+    // UPDATE Review route
+    // POST: tutorials/:id/reviews/:review_id
+    app.put('/tutorials/:id/reviews/:review_id', middleware.checkReviewOwnership, function(req, res){
         Review.findByIdAndUpdate(req.params.review_id, req.body.review, function(err, review) {
             if (err){
                 console.log(err);
@@ -80,8 +81,9 @@ module.exports = function(app) {
         })
     });
 
-    //REVIEW DESTROY ROUTE 
-    app.delete('/:review_id', middleware.checkReviewOwnership, function(req, res) {
+    // REMOVE REVIEW 
+    // DELETE /tutorials/:id/reviews/:review_id
+    app.delete('/tutorials/:id/reviews/:review_id', middleware.checkReviewOwnership, function(req, res) {
         Review.findByIdAndRemove(req.params.review_id, function(err){
             if (err){
                 req.flash('error', 'Something went wrong. We will look into it.');
