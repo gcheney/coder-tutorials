@@ -34,9 +34,22 @@ var homeRoutes          = require('./routes/home'),
 
 // ---------- DATABASE CONFIGURATION ----------- //
 //mongodb://<dbuser>:<dbpassword>@ds035014.mongolab.com:35014/db_name
-var DB_URL = process.env.DATABASE_URL || 'mongodb://localhost/coder_tutorials';
+var DB_URL = process.env.MONGOLAB_URI || 'mongodb://localhost/coder_tutorials';
 mongoose.connect(DB_URL);
-//seedDB();
+
+mongoose.connection.on('connected', function () {
+    console.log('Mongoose connected to ' + dbURI);
+    //seedDB();
+});
+
+mongoose.connection.on('error',function (err) {
+    console.log('Mongoose connection error: ' + err);
+});
+
+mongoose.connection.on('disconnected', function () {
+    console.log('Mongoose disconnected');
+});
+
 
 // ---------- PASSPORT CONFIGURATION ----------- //
 app.use(expressSession({
