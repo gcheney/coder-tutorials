@@ -1,18 +1,23 @@
 var express = require('express');
 var router = express.Router();
 var marked = require('marked');
+//var hljs = require('highlight.js');
 var Tutorial = require('../models/tutorial');
 var middleware = require('../middleware');
 
+
 marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: false,
-  pedantic: false,
-  sanitize: true,
-  smartLists: true,
-  smartypants: false
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code) {
+        return require('highlight.js').highlightAuto(code).value;
+    }
 });
 
 // LIST
@@ -66,7 +71,7 @@ router.get('/new', middleware.isAuthenticated, function(req, res){
     res.render('tutorials/new');
 });
 
-// view - tutorials and comments
+// VIEW
 //GET: /tutorials/:id 
 router.get('/:id', function(req, res){
     Tutorial.findById(req.params.id)
@@ -76,6 +81,7 @@ router.get('/:id', function(req, res){
                     console.log(err);
                     res.redirect('/');
                 } else {
+                    //parse markdown
                     tutorial.content = marked(tutorial.content);
                     console.log(tutorial.content);
                     res.render('tutorials/view', { tutorial: tutorial });
