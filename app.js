@@ -1,18 +1,18 @@
-var express         = require('express'),
-    app             = express(),
-    morgan          = require('morgan')
-    bodyParser      = require('body-parser'),
-    flash           = require('connect-flash'),
-    mongoose        = require('mongoose'),
-    passport        = require('passport'),
-    expressSession  = require('express-session'),
-    LocalStrategy   = require('passport-local'),
-    methodOverride  = require('method-override'),
-    Tutorial        = require('./models/tutorial'),
-    Review          = require('./models/review'),
-    User            = require('./models/user'),
-    seedDB          = require('./seeds')
-    
+var express             = require('express'),
+    app                 = express(),
+    morgan              = require('morgan')
+    bodyParser          = require('body-parser'),
+    flash               = require('connect-flash'),
+    mongoose            = require('mongoose'),
+    passport            = require('passport'),
+    expressSession      = require('express-session'),
+    LocalStrategy       = require('passport-local'),
+    methodOverride      = require('method-override'),
+    User                = require('./models/user'),
+    homeController      = require('./controllers/home'),
+    accountController   = require('./controllers/account'),
+    reviewController    = require('./controllers/reviews'),
+    tutorialController  = require('./controllers/tutorials')
     
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
@@ -25,30 +25,8 @@ app.use(morgan('combined'));
 app.use(flash());
 
 
-// ------------------- REQUIRE ROUTES ------------------------ //
-var homeRoutes          = require('./routes/home'),
-    tutorialRoutes      = require('./routes/tutorials'),
-    reviewRoutes        = require('./routes/reviews'),
-    accountRoutes       = require('./routes/account')
-
-
 // ---------- DATABASE CONFIGURATION ----------- //
-//mongodb://<dbuser>:<dbpassword>@ds035014.mongolab.com:35014/db_name
-var DB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost/coder_tutorials';
-mongoose.connect(DB_URI);
-
-mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + DB_URI);
-    //seedDB();
-});
-
-mongoose.connection.on('error',function (err) {
-    console.log('Mongoose connection error: ' + err);
-});
-
-mongoose.connection.on('disconnected', function () {
-    console.log('Mongoose disconnected');
-});
+require('./db')
 
 
 // ---------- PASSPORT CONFIGURATION ----------- //
@@ -74,11 +52,11 @@ app.use(function(req, res, next){
 });
 
 
-// ------------------- USE ROUTES ------------------------ //
-app.use('/tutorials', tutorialRoutes);
-app.use('/tutorials/:id/reviews', reviewRoutes);
-app.use('/account', accountRoutes);
-app.use(homeRoutes);
+// ------------------- CONTROLLERS ------------------------ //
+homeController(app);
+accountController(app);
+tutorialController(app);
+reviewController(app);
 
 
 // ------------------- APP LISTEN ------------------------ //
