@@ -6,18 +6,20 @@
         </div>
     </div>
     
-    <div class="row text-center tutorial-list">
+    <div class="row tutorial-list">
         <% tutorials.forEach(function(tutorial){ %>
-            <div class="col-md-3 col-sm-6">
-                <div class="well">
-                    <div class="text-center">
-                        <h3><%= tutorial.title %></h3>
+                <div class="col-md-10 col-sm-9 col-md-offset-1 text-center">
+                    <a href="/tutorials/<%= tutorial._id %>"><h3><%= tutorial.title %></h3></a>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <h4><span class="label label-default"><%= tutorial.subtitle %></span></h4>
+                            <h4>
+                                <small style="font-family:courier,'new courier';" class="text-muted">Posted on <%= tutorial.createdOn %> by <a href="#" class="text-muted"><%= tutorial.author.username %></a></small>
+                            </h4>
+                        </div>
                     </div>
-                    <p>
-                        <a href="/tutorials/<%= tutorial._id %>" class="btn btn-primary">Read More</a>
-                    </p>
                 </div>
-            </div>
+            <hr>
         <% }); %>
     </div>
 </div>
