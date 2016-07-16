@@ -7,7 +7,7 @@
                 <div class="caption-full text-center">
                     <h3><%= tutorial.title %></h3>
                     <p>Created on <%= tutorial.createdOn %> by <%= tutorial.author.username %></p>
-                    <p><%= tutorial.content %></p>
+                    <div id="content"><%- tutorial.content %></div>
                     <% if (currentUser && tutorial.author.id.equals(currentUser._id)) { %>
                         <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning">Edit Tutorial</a>
                         <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">

@@ -36,7 +36,7 @@ var homeRoutes          = require('./routes/home'),
 //mongodb://<dbuser>:<dbpassword>@ds035014.mongolab.com:35014/db_name
 var DB_URL = process.env.DATABASE_URL || 'mongodb://localhost/coder_tutorials';
 mongoose.connect(DB_URL);
-seedDB();
+//seedDB();
 
 // ---------- PASSPORT CONFIGURATION ----------- //
 app.use(expressSession({

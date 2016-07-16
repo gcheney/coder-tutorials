@@ -1,7 +1,19 @@
 var express = require('express');
 var router = express.Router();
+var marked = require('marked');
 var Tutorial = require('../models/tutorial');
 var middleware = require('../middleware');
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true,
+  tables: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
 
 // LIST
 //GET: /tutorials
@@ -64,6 +76,8 @@ router.get('/:id', function(req, res){
                     console.log(err);
                     res.redirect('/');
                 } else {
+                    tutorial.content = marked(tutorial.content);
+                    console.log(tutorial.content);
                     res.render('tutorials/view', { tutorial: tutorial });
                 }
             });
