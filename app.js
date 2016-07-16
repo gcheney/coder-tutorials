@@ -34,11 +34,11 @@ var homeRoutes          = require('./routes/home'),
 
 // ---------- DATABASE CONFIGURATION ----------- //
 //mongodb://<dbuser>:<dbpassword>@ds035014.mongolab.com:35014/db_name
-var DB_URL = process.env.MONGOLAB_URI || 'mongodb://localhost/coder_tutorials';
-mongoose.connect(DB_URL);
+var DB_URI = process.env.MONGOLAB_URI || 'mongodb://localhost/coder_tutorials';
+mongoose.connect(DB_URI);
 
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose connected to ' + dbURI);
+    console.log('Mongoose connected to ' + DB_URI);
     //seedDB();
 });
 
