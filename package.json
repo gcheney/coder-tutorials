@@ -8,6 +8,10 @@
     "start": "node app.js"
   },
   "author": "Glendon Cheney",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gcheney/coder-tutorials"
+  },
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.14.2",
