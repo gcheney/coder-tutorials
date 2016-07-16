@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <h2 class="text-center">Change your Review for <%= tutorial.name %></h2>
+        <div class="form">
+            <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
+                <div class="form-group">
+                  <label for="review[content]">Edit your Review:</label>
+                  <textarea class="form-control" rows="5" name="review[content]" id="description"><%= review.content %></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Update Review</button>
+                </div>
+            </form>
+            <a href="/tutorials/<%= tutorial._id %>">Go Back</a>
+        </div>
+    </div>
+</div>
+<% include ../partials/footer %>
