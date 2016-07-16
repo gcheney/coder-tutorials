@@ -38,6 +38,29 @@ var DB_URL = process.env.DATABASE_URL || 'mongodb://localhost/coder_tutorials';
 mongoose.connect(DB_URL);
 
 
+// ---------- PASSPORT CONFIGURATION ----------- //
+app.use(expressSession({
+    secret: 'coder tutorials',
+    resave: false, 
+    saveUninitialized : false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+//give every view the currentUser varaiable with 
+//the value of req.user
+app.use(function(req, res, next){
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    next();
+});
+
+
 // ------------------- USE ROUTES ------------------------ //
 app.use('/tutorials', tutorialRoutes);
 app.use('/tutorials/:id/reviews', reviewRoutes);
