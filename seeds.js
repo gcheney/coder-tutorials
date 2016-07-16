@@ -28,6 +28,7 @@ function seedDB(){
                         //Create a default comment for the new tutorial
                         Review.create({
                             content: 'This was a good tutorial.',
+                            createdOn: new Date("October 13, 2014 11:13:00"),
                             author: {
                                username: 'Homer Simpson' 
                             }
