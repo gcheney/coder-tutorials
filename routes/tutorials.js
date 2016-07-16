@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var marked = require('marked');
-//var hljs = require('highlight.js');
 var Tutorial = require('../models/tutorial');
 var middleware = require('../middleware');
 
@@ -83,7 +82,6 @@ router.get('/:id', function(req, res){
                 } else {
                     //parse markdown
                     tutorial.content = marked(tutorial.content);
-                    console.log(tutorial.content);
                     res.render('tutorials/view', { tutorial: tutorial });
                 }
             });
