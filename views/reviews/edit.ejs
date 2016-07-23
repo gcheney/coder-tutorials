@@ -1,8 +1,8 @@
 <% include ../partials/header %>
 <div class="container">
     <div class="row">
-        <h2 class="text-center">Change your Review for <%= tutorial.name %></h2>
-        <div class="form">
+        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+            <h2 class="text-center">Change your Review for <%= tutorial.name %></h2>
             <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
                 <div class="form-group">
                   <label for="review[content]">Edit your Review:</label>
@@ -12,7 +12,7 @@
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Update Review</button>
                 </div>
             </form>
-            <a href="/tutorials/<%= tutorial._id %>">Go Back</a>
+            <a class="btn btn-primary" href="/tutorials/<%= tutorial._id %>"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
         </div>
     </div>
 </div>
