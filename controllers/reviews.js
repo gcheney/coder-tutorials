@@ -71,7 +71,9 @@ module.exports = function(app) {
     // UPDATE Review route
     // POST: tutorials/:id/reviews/:review_id
     app.put('/tutorials/:id/reviews/:review_id', middleware.checkReviewOwnership, function(req, res){
-        Review.findByIdAndUpdate(req.params.review_id, req.body.review, function(err, review) {
+        var reviewToUpdate = req.body.review;
+        reviewToUpdate.editedOn = Date.now();
+        Review.findByIdAndUpdate(req.params.review_id, reviewToUpdate, function(err, review) {
             if (err){
                 console.log(err);
                 res.redirect('back');

@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var reviewSchema = mongoose.Schema({
     content: {type: String, required: true}, 
     createdOn: { type: Date, default: Date.now },
+    editedOn: { type: Date },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
