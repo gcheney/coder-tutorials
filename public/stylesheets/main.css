@@ -19,3 +19,7 @@ hr {
     margin-bottom: 20px;
     width: 75%;
 }
+
+.text-muted {
+    font-family: courier,'new courier'
+}

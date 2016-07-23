@@ -1,4 +1,5 @@
 var marked = require('marked');
+var moment = require('moment');
 var Tutorial = require('../models/tutorial');
 var middleware = require('../middleware');
 
@@ -30,7 +31,8 @@ module.exports = function(app) {
                     } else {
                         res.render('tutorials/index', { 
                             title: 'All Tutorials',
-                            tutorials: tutorials
+                            tutorials: tutorials,
+                            moment: moment
                         });
                     }
                 });
@@ -85,7 +87,10 @@ module.exports = function(app) {
                         console.log(err);
                         res.redirect('/');
                     } else {
-                        res.render('tutorials/view', { tutorial: tutorial });
+                        res.render('tutorials/view', { 
+                            tutorial: tutorial,
+                            moment: moment
+                        });
                     }
                 });
     });

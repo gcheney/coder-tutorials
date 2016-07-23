@@ -26,8 +26,8 @@
                 <% tutorial.reviews.forEach(function(review){ %>
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
-                            <strong><%= review.author.username %></strong>
-                            <span class="pull-right"><%= review.createdOn %></span>
+                            <strong><a href=""><%= review.author.username %></a></strong>
+                            <span class="pull-right">Posted on <%= moment(review.createdOn).format('MMMM Do YYYY, h:mm a')%></span>
                             <p><%= review.content %></p>
                             <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
                                 <a class="btn btn-xs btn-warning"  

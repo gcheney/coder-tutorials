@@ -14,9 +14,9 @@ var tutorialSchema = new mongoose.Schema({
         username: String
     },
     reviews: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Review'
-        }]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review'
+    }]
 });
 
 module.exports = mongoose.model('Tutorial', tutorialSchema);

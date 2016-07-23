@@ -1,3 +1,4 @@
+var moment = require('moment');
 var Tutorial = require('../models/tutorial');
 
 module.exports = function(app) {
@@ -14,7 +15,8 @@ module.exports = function(app) {
                     } else {
                         res.render('home/index', { 
                             title: 'Home',
-                            tutorials: tutorials
+                            tutorials: tutorials,
+                            moment: moment
                         });
                     }
                 });
