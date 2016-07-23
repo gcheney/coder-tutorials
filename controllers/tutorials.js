@@ -117,7 +117,8 @@ module.exports = function(app) {
         var updatedTutorial = { 
             title: title, 
             content: content, 
-            markdown: markdown
+            markdown: markdown,
+            editedOn: Date.now()
         };
 
         Tutorial.findByIdAndUpdate(req.params.id, updatedTutorial, function(err, tutorial) {
