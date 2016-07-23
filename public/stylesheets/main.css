@@ -23,3 +23,8 @@ hr {
 .text-muted {
     font-family: courier,'new courier'
 }
+
+.close {
+    margin-top: 14px;
+    margin-right: 10px;
+}
