@@ -20,11 +20,18 @@ hr {
     width: 75%;
 }
 
+.navbar {
+    /* remove rounded navbar corner */
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
 .text-muted {
     font-family: courier,'new courier'
 }
 
 .close {
-    margin-top: 14px;
+    margin-top: 12px;
     margin-right: 10px;
 }
