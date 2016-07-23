@@ -63,7 +63,11 @@ module.exports = function(app) {
                    console.log(err);
                    return res.redirect('back');
                } 
-               res.render('reviews/edit', { tutorial: tutorial, review: review});
+               res.render('reviews/edit', { 
+                   tutorial: tutorial, 
+                   review: review,
+                   title: 'Edit Review'
+               });
             });
         });
     });

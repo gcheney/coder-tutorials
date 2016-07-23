@@ -30,12 +30,18 @@ module.exports = function(app) {
                         console.log(err);
                     } else {
                         res.render('tutorials/index', { 
-                            title: 'All Tutorials',
+                            title: 'Tutorials',
                             tutorials: tutorials,
                             moment: moment
                         });
                     }
                 });
+    });
+    
+    // CREATE
+    // GET: /tutorials/create
+    app.get('/tutorials/create', middleware.isAuthenticated, function(req, res){
+        res.render('tutorials/create', { title: 'Create Tutorial'});
     });
 
     // CREATE
@@ -70,13 +76,6 @@ module.exports = function(app) {
         });
     });
 
-
-    // NEW
-    // GET: /tutorials/new
-    app.get('/tutorials/new', middleware.isAuthenticated, function(req, res){
-        res.render('tutorials/new');
-    });
-
     // VIEW
     //GET: /tutorials/:id 
     app.get('/tutorials/:id', function(req, res){
@@ -89,7 +88,8 @@ module.exports = function(app) {
                     } else {
                         res.render('tutorials/view', { 
                             tutorial: tutorial,
-                            moment: moment
+                            moment: moment,
+                            title: "View Tutorial"
                         });
                     }
                 });
@@ -103,7 +103,10 @@ module.exports = function(app) {
                 console.log(err);
                 res.redirect('back')
             }
-            res.render('tutorials/edit', { tutorial: tutorial });
+            res.render('tutorials/edit', { 
+                tutorial: tutorial,
+                title: "Edit Tutorial"
+            });
         });
     });
 

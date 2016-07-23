@@ -5,17 +5,17 @@ module.exports = function(app) {
     
     //view signup form
     app.get('/account/signup', function(req, res){
-        res.render('account/signup');
+        res.render('account/signup', { title: 'Sign Up'});
     });
 
     //handle signup login
     app.post('/account/signup', function(req, res){
         var newUser = new User({username: req.body.username});
         User.register(newUser, req.body.password, function(err, user){
-            if(err){
+            if(err) {
                 console.log(err);
                 req.flash('error', err.message);
-                return res.render('account/signup');
+                return res.render('account/signup', { title: 'Sign Up' });
             }
             passport.authenticate('local')(req, res, function(){
                 res.redirect('/');
@@ -25,7 +25,7 @@ module.exports = function(app) {
 
     //view login form
     app.get('/account/login', function(req, res){
-        res.render('account/login');
+        res.render('account/login', { title: 'Login' });
     });
 
     //login user
