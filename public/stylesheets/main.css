@@ -7,11 +7,6 @@
     flex-wrap: wrap
 }
 
-.form {
-    width: 30%; 
-    margin: 25px auto;
-}
-
 hr {
     height: 2px;
     border-top: 1px solid black;
