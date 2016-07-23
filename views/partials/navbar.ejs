@@ -11,17 +11,24 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li><a class="nav navbar-nav navbar-left" href="/tutorials">All Tutorials</a></li>
-                <li><a class="nav navbar-nav navbar-left" href="/tutorials/new">Create</a></li>
+                <li <% if (title == "Home") { %> class="active" <% } %>><a href="/">Home</a></li>
+                <li <% if (title == "Tutorials") { %> class="active" <% } %>><a href="/tutorials">All Tutorials</a></li>
+                <li <% if (title == "Create Tutorial") { %> class="active" <% } %>><a href="/tutorials/create">Create</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <% if (!currentUser) { %>
-                    <li><a href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
-                    <li><a href="/account/signup"><i class="fa fa-user" aria-hidden="true"></i> Signup</a></li>
+                    <li <% if (title == "Login") { %> class="active" <% } %>>
+                        <a href="/account/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+                    </li>
+                    <li <% if (title == "Sign Up") { %> class="active" <% } %>>
+                        <a href="/account/signup"><i class="fa fa-user" aria-hidden="true"></i> Signup</a>
+                    </li>
                 <% } else { %>
-                    <li><a href="/">Hi there, <%= currentUser.username %>!</a></li>
+                    <li><a>Hi there, <%= currentUser.username %>!</a></li>
                     <li><a href="">My Tutorials</a></li>
-                    <li><a href="/account/logout">Logout</a></li>
+                    <li>
+                        <a href="/account/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+                    </li>
                 <% } %>
             </ul>
         </div>
