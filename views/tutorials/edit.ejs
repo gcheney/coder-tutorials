@@ -9,6 +9,10 @@
                     <input class="form-control" type="text" value="<%= tutorial.title %>" name="tutorial[title]" required>
                 </div>
                 <div class="form-group">
+                    <label for="tutorial[description]">Description:</label>
+                    <input class="form-control" type="text" value="<%= tutorial.description %>" name="tutorial[description]" required>
+                </div>
+                <div class="form-group">
                     <label for="tutorial[content]">Content:</label>
                     <textarea class="form-control" rows="20" name="tutorial[content]" id="content" required>
                         <%= tutorial.markdown %>

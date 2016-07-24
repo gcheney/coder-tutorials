@@ -48,6 +48,7 @@ module.exports = function(app) {
     // POST: /tutorials
     app.post('/tutorials', middleware.isAuthenticated, function(req, res){
         var title = req.body.title;
+        var description = req.body.description;
         var markdown = req.body.content;
         var author = {
             id: req.user._id,
@@ -60,6 +61,7 @@ module.exports = function(app) {
         //create tutorial object to save
         var newTutorial = { 
             title: title, 
+            description: description,
             content: content, 
             author: author,
             markdown : markdown
@@ -114,11 +116,13 @@ module.exports = function(app) {
     // PUT: /tutorials/:id
     app.put('/tutorials/:id', middleware.checkTutorialOwnership, function(req, res) {
         var title = req.body.tutorial.title;
+        var description = req.body.tutorial.description;
         var markdown = req.body.tutorial.content;
         var content = marked(markdown);
 
         var updatedTutorial = { 
             title: title, 
+            description: description,
             content: content, 
             markdown: markdown,
             editedOn: Date.now()
