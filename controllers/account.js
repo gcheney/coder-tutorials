@@ -12,7 +12,7 @@ module.exports = function(app) {
     app.post('/account/signup', function(req, res){
         var newUser = new User({username: req.body.username});
         User.register(newUser, req.body.password, function(err, user){
-            if(err) {
+            if (err) {
                 console.log(err);
                 req.flash('error', err.message);
                 return res.render('account/signup', { title: 'Sign Up' });
@@ -31,8 +31,8 @@ module.exports = function(app) {
     //login user
     app.post('/account/login', passport.authenticate('local', { 
             successRedirect: '/',
-            failureRedirect: 'account/login'
-        }), function(req, res){ 
+            failureRedirect: '/account/login'
+        }), function(req, res){      
     });
 
     //logout route
