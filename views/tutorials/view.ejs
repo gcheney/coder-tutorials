@@ -7,7 +7,7 @@
                 <div class="caption-full">
                     <h1 class="text-center"><%= tutorial.title %></h1>
                     <h3 class="text-center"><%= tutorial.description %></h3>
-                    <p class="text-center">Created on <%= tutorial.createdOn %> by <%= tutorial.author.username %></p>
+                    <p class="text-center">Created on <%= moment(tutorial.createdOn).format('MMMM Do YYYY, h:mm a') %> by <a href="#"><b><%= tutorial.author.username %></b></a></p>
                     <div id="content">
                         <%- tutorial.content %>
                     </div>
@@ -20,32 +20,39 @@
                 </div>
             </div>
             <div class="well">
-                <div class="text-right">
-                    <a class="btn btn-success" href="/tutorials/<%= tutorial._id %>/reviews/new">Add Review</a>
-                </div>
-                <hr>
-                <% tutorial.reviews.forEach(function(review){ %>
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <strong><a href=""><%= review.author.username %></a></strong>
-                            <% if (review.editedOn) { %>
-                                <span class="pull-right">Edited on <%= moment(review.editedOn).format('MMMM Do YYYY, h:mm a')%></span>
-                            <% } else { %>
-                                <span class="pull-right">Posted on <%= moment(review.createdOn).format('MMMM Do YYYY, h:mm a')%></span>
-                            <% } %>
-                            <p><%= review.content %></p>
-                            <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
-                                <a class="btn btn-xs btn-warning"  
-                                   href="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>/edit">Edit
-                                </a>
-                                <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=DELETE" 
-                                      method="POST" id="delete-form">
-                                    <button type="submit" class="btn btn-xs btn-danger">Remove</button>
-                                </form>
-                            <% } %>
-                        </div>
+                <% if (tutorial.reviews.length === 0) { %>
+                    <div class="text-center">
+                        <h3>This Tutorial doesn't have any reviews...yet.</h3>
+                        <h4><a href="/tutorials/<%= tutorial._id %>/reviews/new">Why not be the first?</a></h4>
                     </div>
-                <% }); %>
+                <% } else { %>
+                    <div class="text-right">
+                        <a class="btn btn-success" href="/tutorials/<%= tutorial._id %>/reviews/new">Add Review</a>
+                    </div>
+                    <% tutorial.reviews.forEach(function(review){ %>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <strong><a href=""><%= review.author.username %></a></strong>
+                                <% if (review.editedOn) { %>
+                                    <span class="pull-right">Edited on <%= moment(review.editedOn).format('MMMM Do YYYY, h:mm a')%></span>
+                                <% } else { %>
+                                    <span class="pull-right">Posted on <%= moment(review.createdOn).format('MMMM Do YYYY, h:mm a')%></span>
+                                <% } %>
+                                <p><%= review.content %></p>
+                                <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
+                                    <a class="btn btn-xs btn-warning"  
+                                       href="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>/edit">Edit
+                                    </a>
+                                    <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=DELETE" 
+                                          method="POST" id="delete-form">
+                                        <button type="submit" class="btn btn-xs btn-danger">Remove</button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
             </div>
             
             <a class="btn btn-primary" href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
