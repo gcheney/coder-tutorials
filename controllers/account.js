@@ -21,7 +21,7 @@ module.exports = function(app) {
                 return res.render('account/signup', { title: 'Sign Up' });
             }
             passport.authenticate('local')(req, res, function(){
-                res.redirect('/');
+                res.redirect('/account/manage');
             });
         });
     });
@@ -29,7 +29,7 @@ module.exports = function(app) {
     // view manage account form
     // GET: /account/manage
     app.get('/account/manage', middleware.isAuthenticated, function(req, res){
-        res.render('account/manage', { title: 'Account'});
+        res.render('account/manage', { title: 'My Account'});
     });
     
     // password update
@@ -39,7 +39,7 @@ module.exports = function(app) {
             if (err) {
                 console.log(err);
                 req.flash('error', err.message);
-                return res.render('account/manage', { title: 'Account'});
+                return res.render('account/manage', { title: 'My Account'});
             }
             
             var newPass = req.body.newPassword;
@@ -55,14 +55,14 @@ module.exports = function(app) {
                 if (err) {
                     console.log(err);
                     req.flash('error', err.message);
-                    return res.render('account/manage', { title: 'Account'});
+                    return res.render('account/manage', { title: 'My Account'});
                 } else {
                     //save user
                     user.save(function(err){
                         if (err) {
                             console.log(err);
                             req.flash('error', err.message);
-                            return res.render('account/manage', { title: 'Account'});
+                            return res.render('account/manage', { title: 'My Account'});
                         } else {
                             //success - password changed
                             console.log('User ' + req.user.username + ' updated their password.');
@@ -84,7 +84,7 @@ module.exports = function(app) {
     // login user
     // POST: /account/login
     app.post('/account/login', passport.authenticate('local', { 
-            successRedirect: '/',
+            successRedirect: '/account/manage',
             failureRedirect: '/account/login'
         }), function(req, res){    
     });
