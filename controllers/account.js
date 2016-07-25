@@ -84,9 +84,10 @@ module.exports = function(app) {
     // login user
     // POST: /account/login
     app.post('/account/login', passport.authenticate('local', { 
-            successRedirect: '/account/manage',
-            failureRedirect: '/account/login'
-        }), function(req, res){    
+        failureRedirect: '/account/login'}), 
+        function(req, res) {
+            res.redirect(req.session.returnTo || '/account/manage');
+            delete req.session.returnTo;
     });
 
     // logout route
