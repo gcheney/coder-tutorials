@@ -6,6 +6,7 @@ var express             = require('express'),
     mongoose            = require('mongoose'),
     passport            = require('passport'),
     expressSession      = require('express-session'),
+    cookieParser        = require('cookie-parser')
     LocalStrategy       = require('passport-local'),
     methodOverride      = require('method-override'),
     User                = require('./models/user'),
@@ -30,8 +31,9 @@ require('./db')
 
 
 // ---------- PASSPORT CONFIGURATION ----------- //
+app.use(cookieParser());
 app.use(expressSession({
-    secret: 'coder tutorials',
+    secret: 'topsecret',
     resave: false, 
     saveUninitialized : false
 }));
