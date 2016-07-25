@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <h2 class="text-center">Change your Review for <%= tutorial.name %></h2>
             <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
                 <div class="form-group">
