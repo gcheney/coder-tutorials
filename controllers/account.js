@@ -18,7 +18,7 @@ module.exports = function(app) {
             if (err) {
                 console.log(err);
                 req.flash('error', err.message);
-                return res.render('account/signup', { title: 'Sign Up' });
+                return res.redirect('/account/signup');
             }
             passport.authenticate('local')(req, res, function(){
                 res.redirect('/account/manage');
@@ -33,13 +33,13 @@ module.exports = function(app) {
     });
     
     // password update
-    // POST: /account/manage
+    // POST: /account/manage/password
     app.post('/account/manage/password', middleware.isAuthenticated, function(req, res){
         User.findOne({ username: req.user.username }, function(err, user) {
             if (err) {
                 console.log(err);
                 req.flash('error', err.message);
-                return res.render('account/manage', { title: 'My Account'});
+                return res.redirect('/account/manage');
             }
             
             var newPass = req.body.newPassword;
@@ -47,7 +47,7 @@ module.exports = function(app) {
             //make sure new passwords match
             if (newPass !== req.body.confirmPassword) {
                 req.flash('error', 'Please make sure the new password was entered correctly both times.');
-                return res.render('account/manage', { title: 'Account'});
+                return res.redirect('/account/manage');
             }
 
             //update user password
@@ -55,14 +55,14 @@ module.exports = function(app) {
                 if (err) {
                     console.log(err);
                     req.flash('error', err.message);
-                    return res.render('account/manage', { title: 'My Account'});
+                    return res.redirect('/account/manage');
                 } else {
                     //save user
                     user.save(function(err){
                         if (err) {
                             console.log(err);
                             req.flash('error', err.message);
-                            return res.render('account/manage', { title: 'My Account'});
+                            return res.redirect('/account/manage');
                         } else {
                             //success - password changed
                             console.log('User ' + req.user.username + ' updated their password.');
