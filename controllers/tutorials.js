@@ -20,7 +20,7 @@ marked.setOptions({
 
 module.exports = function(app) {
     
-    // LIST
+    // LIST ALL TUTORIALS
     // GET: /tutorials
     app.get('/tutorials', function(req, res){
         Tutorial.find({}) 
@@ -29,7 +29,7 @@ module.exports = function(app) {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.render('tutorials/index', { 
+                        res.render('tutorials/list', { 
                             title: 'Tutorials',
                             tutorials: tutorials,
                             moment: moment
