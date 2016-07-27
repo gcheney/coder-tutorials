@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Tutorial = require('./models/tutorial');
 var Review = require('./models/review');
+var User = require('./model/User');
 
 var tutorials = [
     {
@@ -12,8 +13,19 @@ var tutorials = [
 
 function seedDB() {
     
+    
+    Tutorial.remove({}, function(err){
+        if(err) {
+            console.log(err);
+        } 
+    });
+
+    User.remove({}, function(err){
+        if(err) {
+            console.log(err);
+        } 
+    });
        
-    //Used for testing in early stages 
     //remove all tutorials in the DB
     Tutorial.remove({}, function(err){
         if(err) {
