@@ -14,9 +14,9 @@
                         <%- tutorial.content %>
                     </div>
                     <% if (currentUser && tutorial.author.id.equals(currentUser._id)) { %>
-                        <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning">Edit Tutorial</a>
+                        <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Tutorial</a>
                         <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">
-                            <button class="btn btn-danger" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit">Delete Tutorial</button>
+                            <button class="btn btn-danger" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete Tutorial</button>
                         </form>          
                         <div id="confirm-delete" class="modal fade" aria-hidden="true">
                             <div class="modal-dialog">
@@ -61,12 +61,10 @@
                                 <br />
                                 <p><%= review.content %></p>
                                 <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
-                                    <a class="btn btn-xs btn-warning"  
-                                       href="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>/edit">Edit
-                                    </a>
+                                    <a href="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>/edit" class="btn btn-sm btn-warning pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                                     <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=DELETE" 
-                                          method="POST">
-                                        <button type="submit" class="btn btn-xs btn-danger btn-delete">Remove</button>
+                                          method="POST" class="pull-right">
+                                        <button type="submit" class="btn btn-sm btn-danger btn-delete"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
                                     </form>
                                 <% } %>
                             </div>

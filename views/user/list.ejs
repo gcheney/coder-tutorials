@@ -25,10 +25,7 @@
                                 </h4>
                             </div>
                             <% if (currentUser && tutorial.author.id.equals(currentUser._id)) { %>
-                                <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning">Edit Tutorial</a>
-                                <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">
-                                    <button class="btn btn-danger" type="submit">Delete Tutorial</button>
-                                </form>          
+                                <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Tutorial</a>       
                             <% } %>
                         </div>
                     </div>
