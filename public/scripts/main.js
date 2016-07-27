@@ -8,5 +8,17 @@ $(document).ready(function() {
              });
         });
     });
+    
+    // show popup modal for tutorial delete
+    $('#tutorial-delete').on('click', function(e){
+        e.preventDefault();
+             
+        $('#btn-ok').on('click', function() {
+            $('#confirm-delete').fadeOut('fast', function() {
+                 $('#delete-form').trigger('submit'); // submit the form
+             });
+        });        
+    });
+    
 
 });
