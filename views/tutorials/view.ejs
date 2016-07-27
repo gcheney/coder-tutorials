@@ -7,7 +7,9 @@
                 <div class="caption-full">
                     <h1 class="text-center"><%= tutorial.title %></h1>
                     <h3 class="text-center"><%= tutorial.description %></h3>
-                    <p class="text-center">Created on <%= moment(tutorial.createdOn).format('MMMM Do YYYY, h:mm a') %> by <a href="#"><b><%= tutorial.author.username %></b></a></p>
+                    <p class="text-center">
+                        Created on <%= moment(tutorial.createdOn).format('MMMM Do YYYY, h:mm a') %> by <a href="/user/<% tutorial.author.username %>"><b><%= tutorial.author.username %></b></a>
+                    </p>
                     <div id="content">
                         <%- tutorial.content %>
                     </div>
@@ -33,12 +35,14 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <strong><a href=""><%= review.author.username %></a></strong>
+                                <strong><a href="/user/<%= review.author.username %>"><%= review.author.username %></a></strong>
                                 <% if (review.editedOn) { %>
                                     <span class="pull-right">Edited on <%= moment(review.editedOn).format('MMMM Do YYYY, h:mm a')%></span>
                                 <% } else { %>
                                     <span class="pull-right">Posted on <%= moment(review.createdOn).format('MMMM Do YYYY, h:mm a')%></span>
                                 <% } %>
+                                <br />
+                                <br />
                                 <p><%= review.content %></p>
                                 <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
                                     <a class="btn btn-xs btn-warning"  

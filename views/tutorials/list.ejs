@@ -20,7 +20,7 @@
                                 <% } else { %>
                                     Created on <%= moment(tutorial.createdOn).format('MMMM Do YYYY, h:mm a') %>
                                 <% } %>
-                                    by <a href="#"><%= tutorial.author.username %></a>
+                                    by <a href="/user/<%= tutorial.author.username %>"><b><%= tutorial.author.username %></b></a>
                                 </small>
                             </h4>
                         </div>

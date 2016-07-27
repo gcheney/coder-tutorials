@@ -25,7 +25,7 @@
                     </li>
                 <% } else { %>
                     <li><a class="greeting">Hi there, <%= currentUser.username %>!</a></li>
-                    <li><a href="">My Tutorials</a></li>
+                    <li><a href="/user/<%= currentUser.username %>">My Tutorials</a></li>
                     <li><a href="/account/manage"><i class="fa fa-user" aria-hidden="true"></i>
  My Account</a></li>
                     <li>
