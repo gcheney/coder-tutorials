@@ -15,13 +15,6 @@ hr {
     width: 75%;
 }
 
-.navbar {
-    /* remove rounded navbar corner */
-    -webkit-border-radius: 0 !important;
-    -moz-border-radius: 0 !important;
-    border-radius: 0 !important;
-}
-
 .text-muted {
     font-family: courier,'new courier'
 }
@@ -29,6 +22,20 @@ hr {
 .close {
     margin-top: 12px;
     margin-right: 10px;
+}
+
+/* Override Bootstrap Styles */
+
+.navbar {
+    /* remove rounded navbar corner */
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
+
+.btn-sm {
+    margin: 0 5px 0 5px;
 }
 
 .footer {

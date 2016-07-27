@@ -20,5 +20,9 @@ $(document).ready(function() {
         });        
     });
     
-
+    //show confirm box for review delete
+    $('.btn-delete').on('click', function(){
+        confirm('Are you sure you want to delete this review?');
+    });
+    
 });

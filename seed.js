@@ -10,7 +10,10 @@ var tutorials = [
     }
 ];
 
-function seedDB(){
+function seedDB() {
+    
+       
+    //Used for testing in early stages 
     //remove all tutorials in the DB
     Tutorial.remove({}, function(err){
         if(err) {
