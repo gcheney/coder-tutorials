@@ -13,7 +13,8 @@ var express             = require('express'),
     homeController      = require('./controllers/home'),
     accountController   = require('./controllers/account'),
     reviewController    = require('./controllers/reviews'),
-    tutorialController  = require('./controllers/tutorials')
+    tutorialController  = require('./controllers/tutorials'),
+    userController      = require('./controllers/user')
     
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
@@ -54,11 +55,13 @@ app.use(function(req, res, next){
 });
 
 
-// ------------------- CONTROLLERS ------------------------ //
+// ------------------- SETUP CONTROLLERS ------------------------ //
 homeController(app);
 accountController(app);
 tutorialController(app);
 reviewController(app);
+userController(app);
+
 
 // ------------------- 404 HANDLER ------------------------ //
 app.use(function(req, res, next){
