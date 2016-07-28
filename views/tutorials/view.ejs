@@ -8,7 +8,7 @@
                     <h1 class="text-center"><%= tutorial.title %></h1>
                     <h3 class="text-center"><%= tutorial.description %></h3>
                     <p class="text-center">
-                        Created on <%= moment(tutorial.createdOn).format('MMMM Do YYYY, h:mm a') %> by <a href="/user/<% tutorial.author.username %>"><b><%= tutorial.author.username %></b></a>
+                        Created on <%= moment(tutorial.createdOn).format('MMMM Do YYYY, h:mm a') %> by <a href="/user/<%= tutorial.author.username %>"><b><%= tutorial.author.username %></b></a>
                     </p>
                     <div id="content">
                         <%- tutorial.content %>
