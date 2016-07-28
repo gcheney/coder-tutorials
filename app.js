@@ -28,7 +28,8 @@ app.use(flash());
 
 
 // ---------- DATABASE CONFIGURATION ----------- //
-require('./db')
+require('./data/db');
+require('./data/seed')();
 
 
 // ---------- PASSPORT CONFIGURATION ----------- //
