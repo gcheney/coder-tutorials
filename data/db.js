@@ -10,7 +10,7 @@ mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connected to ' + dbURI);
-    seedDb(); 
+    //seedDb(); 
 });
 
 mongoose.connection.on('error', function (err) {
