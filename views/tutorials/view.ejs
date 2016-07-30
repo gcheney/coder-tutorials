@@ -17,23 +17,10 @@
                         <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Tutorial</a>
                         <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">
                             <button class="btn btn-danger" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete Tutorial</button>
-                        </form>          
-                        <div id="confirm-delete" class="modal fade" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <p>Confirm Delete</p>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Are you sure you want to delete this tutorial? This action <i><b>cannot</b></i> be undone.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" data-dismiss="modal" class="btn btn-danger" id="btn-ok">Delete</button>
-                                        <button type="button" data-dismiss="modal" class="btn">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </form>  
+                    
+                        <% include ../partials/confirm-modal %>
+                    
                     <% } %>
                 </div>
             </div>
