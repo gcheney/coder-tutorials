@@ -17,7 +17,11 @@ module.exports = function(app) {
         User.register(newUser, req.body.password, function(err, user){
             if (err) {
                 console.log(err);
-                req.flash('error', err.message);
+                var message = err.message;
+                if (err.errors.username.properties.type === 'maxlength') {
+                    message = 'Please limit your user name to 25 characters or less.';
+                }
+                req.flash('error', message);
                 return res.redirect('/account/signup');
             }
             passport.authenticate('local')(req, res, function(){
