@@ -23,6 +23,11 @@
                         <button class="btn btn-success pull-left" type="submit">Update Tutorial</button>
                     </div>
                 </form>
+                <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">
+                    <button class="btn btn-danger pull-right" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete Tutorial</button>
+                </form>  
+            
+                <% include ../partials/confirm-modal %>
             </div>
             <a class="btn btn-primary" href="/tutorials/<%= tutorial._id %>"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
         </div>
