@@ -22,4 +22,10 @@ module.exports = function(app) {
                 });
     });
     
+    // ABout route
+    // GET /about
+    app.get('/about', function(req, res) {
+        res.render('home/about', { title: 'About' });
+    });
+    
 }
