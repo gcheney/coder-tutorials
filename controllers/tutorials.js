@@ -32,10 +32,40 @@ module.exports = function(app) {
                         res.render('tutorials/list', { 
                             title: 'Tutorials',
                             tutorials: tutorials,
+                            message: '',    
                             moment: moment
                         });
                     }
                 });
+    });
+    
+    // SEARCH route
+    // GET /tutorials/search?q=test
+    app.get('/tutorials/search', function(req, res) {
+        var query = req.query.q;
+
+        Tutorial.find({'$or':[ { 'title': new RegExp(query,'i')},
+                               { 'description': new RegExp(query,'i')},
+                               { 'content': new RegExp(query,'i')} ]
+                      }).exec(function(err, tutorials) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                var message = '';
+                                var count = tutorials.length;
+                                if (count === 0) {
+                                    message = 'Sorry, no matching tutorials were found.';
+                                } else {
+                                    message = 'We found ' + count + ' matching tutorials';
+                                }
+                                res.render('tutorials/list', { 
+                                    title: 'Tutorials',
+                                    tutorials: tutorials,
+                                    message: message,
+                                    moment: moment
+                                });
+                            }
+                        });
     });
     
     // CREATE
@@ -150,4 +180,5 @@ module.exports = function(app) {
             res.redirect('/');
         });
     });
+    
 }
