@@ -12,8 +12,18 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li <% if (title == "Home") { %> class="active" <% } %>><a href="/">Home</a></li>
-                <li <% if (title == "Tutorials") { %> class="active" <% } %>><a href="/tutorials">All Tutorials</a></li>
+                <li <% if (title == "About") { %> class="active" <% } %>><a href="/about">About</a></li>
+                <li <% if (title == "Tutorials") { %> class="active" <% } %>><a href="/tutorials">Tutorials</a></li>
                 <li <% if (title == "Create Tutorial") { %> class="active" <% } %>><a href="/tutorials/create">Create</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i></a>
+                    <ul class="dropdown-menu">
+                        <form action="/tutorials/search" method="GET">
+                            <input type="text" class="form-control input-md search-dropdown-input" name="q" placeholder="Search">
+                            <input type="submit" hidden="hidden">
+                        </form>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <% if (!currentUser) { %>
