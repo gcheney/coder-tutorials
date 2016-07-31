@@ -60,6 +60,18 @@ hr {
     border-left: solid 1px #ccc;
 }
 
+.modal-body .form-horizontal .col-sm-2,
+.modal-body .form-horizontal .col-sm-10 {
+    width: 100%
+}
+
+.modal-body .form-horizontal .control-label {
+    text-align: left;
+}
+.modal-body .form-horizontal .col-sm-offset-2 {
+    margin-left: 15px;
+}
+
 
 /* Override Bootstrap Styles */
 
@@ -78,12 +90,17 @@ hr {
     margin: 0 5px 0 5px;
 }
 
+.btn-lg {
+    margin: 0 5px 0 5px;
+}
+
 .footer {
     position: fixed;
     right: 0;
     bottom: 0;
     left: 0;
     padding: 1rem;
+    border-top: 1px solid grey;
     background-color: #efefef;
     text-align: center;
 }
