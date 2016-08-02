@@ -1,3 +1,5 @@
+/* General styles */
+
 #delete-form {
     display: inline;
 }
@@ -67,15 +69,6 @@ hr {
   -webkit-transition:width 0.3s ease-in-out;
 }
 
-@media screen and (min-device-width: 1200px)  { 
-    
-    #navbar-search-input:focus {
-        width:420px;
-        -webkit-transition:width 0.5s ease-in-out;
-    }
-    
-}
-
 
 /* Modal styles */
 .modal-body .form-horizontal .col-sm-2,
@@ -122,3 +115,15 @@ hr {
     background-color: #efefef;
     text-align: center;
 }
+
+/* laptops and larger */
+@media screen and (min-device-width: 1200px)  { 
+    
+    /* only exand search input on laptops or larger */
+    #navbar-search-input:focus {
+        width:420px;
+        -webkit-transition:width 0.5s ease-in-out;
+    }
+    
+}
+
