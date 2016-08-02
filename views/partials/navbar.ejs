@@ -15,12 +15,20 @@
                 <li <% if (title == "About") { %> class="active" <% } %>><a href="/about">About</a></li>
                 <li <% if (title == "Tutorials") { %> class="active" <% } %>><a href="/tutorials">Tutorials</a></li>
                 <li <% if (title == "Create Tutorial") { %> class="active" <% } %>><a href="/tutorials/create">Create</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-search" aria-hidden="true"></i></a>
+                <li class="dropdown hidden-xs">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </a>
                     <ul class="dropdown-menu">
                         <form action="/tutorials/search" method="GET">
-                            <input type="text" class="form-control input-md search-dropdown-input" name="q" placeholder="Search">
-                            <input type="submit" hidden="hidden">
+                            <div class="input-group col-md-6">
+                                <input type="text" id="navbar-search-input" class="form-control input-lg" name="q" placeholder="Search">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default btn-lg">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                            </div>
                         </form>
                     </ul>
                 </li>
@@ -34,7 +42,7 @@
                         <a href="/account/signup"><i class="fa fa-user" aria-hidden="true"></i> Signup</a>
                     </li>
                 <% } else { %>
-                    <li><a class="greeting">Hi there, <%= currentUser.username %>!</a></li>
+                    <li><a class="greeting hidden-xs">Hi there, <%= currentUser.username %>!</a></li>
                     <li><a href="/user/<%= currentUser.username %>">My Tutorials</a></li>
                     <li><a href="/account/manage"><i class="fa fa-user" aria-hidden="true"></i>
  My Account</a></li>

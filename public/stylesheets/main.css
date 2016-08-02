@@ -32,19 +32,21 @@ hr {
     display: none;
 }
 
-#custom-search-input{
+/* Search input styles */
+
+#tutorial-search-input{
     padding: 3px;
     border: solid 1px #E4E4E4;
     border-radius: 6px;
     background-color: #fff;
 }
 
-#custom-search-input input{
+#tutorial-search-input input{
     border: 0;
     box-shadow: none;
 }
 
-#custom-search-input button{
+#tutorial-search-input button{
     margin: 2px 0 0 0;
     background: none;
     box-shadow: none;
@@ -54,12 +56,28 @@ hr {
     border-left: solid 1px #ccc;
 }
 
-#custom-search-input button:hover{
+#tutorial-search-input button:hover{
     border: 0;
     box-shadow: none;
     border-left: solid 1px #ccc;
 }
 
+#navbar-search-input {
+  width:220px;
+  -webkit-transition:width 0.3s ease-in-out;
+}
+
+@media screen and (min-device-width: 1200px)  { 
+    
+    #navbar-search-input:focus {
+        width:420px;
+        -webkit-transition:width 0.5s ease-in-out;
+    }
+    
+}
+
+
+/* Modal styles */
 .modal-body .form-horizontal .col-sm-2,
 .modal-body .form-horizontal .col-sm-10 {
     width: 100%
@@ -103,11 +121,4 @@ hr {
     border-top: 1px solid grey;
     background-color: #efefef;
     text-align: center;
-}
-    
-
-@media (max-width: 641px) { 
-    .greeting {
-        visibility: hidden;
-    }
 }
