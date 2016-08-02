@@ -83,12 +83,17 @@ module.exports = function(app) {
 
     // login user
     // POST: /account/login
-    app.post('/account/login', passport.authenticate('local', { failureRedirect: '/account/login'}), 
-        function(req, res) {
-            //user is authenticated
-            res.redirect(req.session.returnTo || '/account/manage');
-            delete req.session.returnTo;
-        }
+    app.post('/account/login', 
+             passport.authenticate('local', 
+                                   { 
+                                        failureRedirect: '/account/login', 
+                                        failureFlash: 'Invalid username or password - please try again.' 
+                                   }), 
+             function(req, res) {
+                //user is authenticated
+                res.redirect(req.session.returnTo || '/account/manage');
+                delete req.session.returnTo;
+            }
     );
 
     // logout route
