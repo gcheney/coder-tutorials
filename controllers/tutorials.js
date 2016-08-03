@@ -121,7 +121,7 @@ module.exports.view = function(req, res){
 }
 
 // GET: /tutorials/:id/edit
-module.exports.edit =, function(req, res){
+module.exports.edit = function(req, res){
     Tutorial.findById(req.params.id, function(err, tutorial){
         if (err) {
             console.log(err);
@@ -136,7 +136,7 @@ module.exports.edit =, function(req, res){
 
 // UPDATE ROUTE
 // PUT: /tutorials/:id
-module.exports.dpUpdate = function(req, res) {
+module.exports.doUpdate = function(req, res) {
     var title = req.body.tutorial.title;
     var description = req.body.tutorial.description;
     var markdown = req.body.tutorial.content;

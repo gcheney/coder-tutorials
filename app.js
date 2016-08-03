@@ -11,8 +11,7 @@ var express             = require('express'),
     methodOverride      = require('method-override'),
     User                = require('./models/user'),
     routes              = require('./routes/index'),
-    reviewController    = require('./controllers/reviews'),
-    tutorialController  = require('./controllers/tutorials')
+    reviewController    = require('./controllers/reviews')
     
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
@@ -55,7 +54,6 @@ app.use(function(req, res, next){
 
 // ------------------- SETUP ROUTES ------------------------ //
 app.use('/', routes);
-tutorialController(app);
 reviewController(app);
 
 

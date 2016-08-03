@@ -36,14 +36,14 @@ router.get('/user/:username', userController.index);
 
 
 /* TUTORIAL ROUTES */
-router.get('/tutorials', tutorialController.index);  
-router.get('/tutorials/search', tutorialController.search);
-router.get('/tutorials/create', middleware.isAuthenticated, tutorialController.create);
-router.post('/tutorials', middleware.isAuthenticated, tutorialController.doCreate);
-router.get('/tutorials/:id', tutorialController.view);
-router.get('/tutorials/:id/edit', middleware.checkTutorialOwnership, tutorialController.edit);
-router.put('/tutorials/:id', middleware.checkTutorialOwnership, tutorialController.doUpdate);
-router.delete('/tutorials/:id', middleware.checkTutorialOwnership, tutorialController.doDelete);
+router.get('/tutorials', tutorialsController.index);  
+router.get('/tutorials/search', tutorialsController.search);
+router.get('/tutorials/create', middleware.isAuthenticated, tutorialsController.create);
+router.post('/tutorials', middleware.isAuthenticated, tutorialsController.doCreate);
+router.get('/tutorials/:id', tutorialsController.view);
+router.get('/tutorials/:id/edit', middleware.checkTutorialOwnership, tutorialsController.edit);
+router.put('/tutorials/:id', middleware.checkTutorialOwnership, tutorialsController.doUpdate);
+router.delete('/tutorials/:id', middleware.checkTutorialOwnership, tutorialsController.doDelete);
 
 
 
