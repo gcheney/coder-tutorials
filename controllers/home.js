@@ -1,10 +1,8 @@
 var moment = require('moment');
 var Tutorial = require('../models/tutorial');
 
-module.exports = function(app) {
-    
-    // GET: /
-    app.get('/', function(req, res){
+// GET: /
+module.exports.index =  function(req, res) {
         //Get all tutorials from the db sorted by desc date
         Tutorial.find({})
                 .sort({'createdOn': 'desc'})
@@ -20,12 +18,9 @@ module.exports = function(app) {
                         });
                     }
                 });
-    });
+}
     
-    // ABout route
-    // GET /about
-    app.get('/about', function(req, res) {
+// GET /about
+module.exports.about = function(req, res) {
         res.render('home/about', { title: 'About' });
-    });
-    
 }

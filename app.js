@@ -10,7 +10,7 @@ var express             = require('express'),
     LocalStrategy       = require('passport-local'),
     methodOverride      = require('method-override'),
     User                = require('./models/user'),
-    homeController      = require('./controllers/home'),
+    routes              = require('./routes/index'),
     accountController   = require('./controllers/account'),
     reviewController    = require('./controllers/reviews'),
     tutorialController  = require('./controllers/tutorials'),
@@ -56,7 +56,7 @@ app.use(function(req, res, next){
 
 
 // ------------------- SETUP CONTROLLERS ------------------------ //
-homeController(app);
+app.use('/', routes);
 accountController(app);
 tutorialController(app);
 reviewController(app);
