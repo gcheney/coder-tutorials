@@ -111,6 +111,7 @@ hr {
     bottom: 0;
     left: 0;
     padding: 1rem;
+    margin-top: 10px;
     border-top: 1px solid grey;
     background-color: #efefef;
     text-align: center;
