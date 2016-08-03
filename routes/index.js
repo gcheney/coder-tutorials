@@ -5,8 +5,8 @@ var middleware = require('../middleware');
 var homeController = require('../controllers/home');
 var accountController = require('../controllers/account');
 var userController = require('../controllers/user');
-var tutorialsController = require('../controllers/tutorials');
-var reviewsController = require('../controllers/reviews');
+var tutorialController = require('../controllers/tutorial');
+var reviewController = require('../controllers/review');
 
 
 /* HOME ROUTES */
@@ -36,14 +36,22 @@ router.get('/user/:username', userController.index);
 
 
 /* TUTORIAL ROUTES */
-router.get('/tutorials', tutorialsController.index);  
-router.get('/tutorials/search', tutorialsController.search);
-router.get('/tutorials/create', middleware.isAuthenticated, tutorialsController.create);
-router.post('/tutorials', middleware.isAuthenticated, tutorialsController.doCreate);
-router.get('/tutorials/:id', tutorialsController.view);
-router.get('/tutorials/:id/edit', middleware.checkTutorialOwnership, tutorialsController.edit);
-router.put('/tutorials/:id', middleware.checkTutorialOwnership, tutorialsController.doUpdate);
-router.delete('/tutorials/:id', middleware.checkTutorialOwnership, tutorialsController.doDelete);
+router.get('/tutorials', tutorialController.index);  
+router.get('/tutorials/search', tutorialController.search);
+router.get('/tutorials/create', middleware.isAuthenticated, tutorialController.create);
+router.post('/tutorials', middleware.isAuthenticated, tutorialController.doCreate);
+router.get('/tutorials/:id', tutorialController.view);
+router.get('/tutorials/:id/edit', middleware.checkTutorialOwnership, tutorialController.edit);
+router.put('/tutorials/:id', middleware.checkTutorialOwnership, tutorialController.doUpdate);
+router.delete('/tutorials/:id', middleware.checkTutorialOwnership, tutorialController.doDelete);
+
+
+/* REVIEW ROUTES */
+router.get('/tutorials/:id/reviews/new', middleware.isAuthenticated, reviewController.new);
+router.post('/tutorials/:id/reviews/', middleware.isAuthenticated, reviewController.doCreate);
+router.get('/tutorials/:id/reviews/:review_id/edit', middleware.checkReviewOwnership, reviewController.edit);
+router.put('/tutorials/:id/reviews/:review_id', middleware.checkReviewOwnership, reviewController.doUpdate);
+router.delete('/tutorials/:id/reviews/:review_id', middleware.checkReviewOwnership, reviewController.doDelete);
 
 
 

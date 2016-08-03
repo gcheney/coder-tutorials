@@ -10,8 +10,7 @@ var express             = require('express'),
     LocalStrategy       = require('passport-local'),
     methodOverride      = require('method-override'),
     User                = require('./models/user'),
-    routes              = require('./routes/index'),
-    reviewController    = require('./controllers/reviews')
+    routes              = require('./routes/index')
     
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
@@ -54,7 +53,6 @@ app.use(function(req, res, next){
 
 // ------------------- SETUP ROUTES ------------------------ //
 app.use('/', routes);
-reviewController(app);
 
 
 // ------------------- 404 HANDLER ------------------------ //
