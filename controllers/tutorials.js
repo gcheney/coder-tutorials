@@ -1,7 +1,6 @@
 var marked = require('marked');
 var moment = require('moment');
 var Tutorial = require('../models/tutorial');
-var middleware = require('../middleware');
 
 // set options for marked
 marked.setOptions({
@@ -18,167 +17,158 @@ marked.setOptions({
     }
 });
 
-module.exports = function(app) {
-    
-    // LIST ALL TUTORIALS
-    // GET: /tutorials
-    app.get('/tutorials', function(req, res){
-        Tutorial.find({}) 
-                .sort({'createdOn': 'desc'})
-                .exec(function(err, tutorials){
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.render('tutorials/list', { 
-                            title: 'Tutorials',
-                            tutorials: tutorials,
-                            message: '',    
-                            moment: moment
-                        });
-                    }
-                });
-    });
-    
-    // SEARCH route
-    // GET /tutorials/search?q=test
-    app.get('/tutorials/search', function(req, res) {
-        var query = req.query.q;
 
-        Tutorial.find({'$or':[ { 'title': new RegExp(query,'i')},
-                               { 'description': new RegExp(query,'i')},
-                               { 'content': new RegExp(query,'i')} ]
-                      }).exec(function(err, tutorials) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                var message = '';
-                                var count = tutorials.length;
-                                if (count === 0) {
-                                    message = 'Sorry, no matching tutorials were found.';
-                                } else {
-                                    message = 'We found ' + count + ' matching tutorials';
-                                }
-                                res.render('tutorials/list', { 
-                                    title: 'Tutorials',
-                                    tutorials: tutorials,
-                                    message: message,
-                                    moment: moment
-                                });
-                            }
-                        });
-    });
-    
-    // CREATE
-    // GET: /tutorials/create
-    app.get('/tutorials/create', middleware.isAuthenticated, function(req, res){
-        res.render('tutorials/create', { title: 'Create Tutorial'});
-    });
-
-    // CREATE
-    // POST: /tutorials
-    app.post('/tutorials', middleware.isAuthenticated, function(req, res){
-        var title = req.body.title;
-        var description = req.body.description;
-        var markdown = req.body.content;
-        var author = {
-            id: req.user._id,
-            username: req.user.username
-        };
-
-        //parse markdown into html before saving
-        var content = marked(markdown);
-
-        //create tutorial object to save
-        var newTutorial = { 
-            title: title, 
-            description: description,
-            content: content, 
-            author: author,
-            markdown : markdown
-        };
-
-        //add new tutorial to the database
-        Tutorial.create(newTutorial, function(err, tutorial){
-            if (err){
-                console.log(err);
-            } else {
-                console.log('Created new tutorial: ' + tutorial);
-                res.redirect('/tutorials/' + tutorial._id);
-            }
-        });
-    });
-
-    // VIEW
-    //GET: /tutorials/:id 
-    app.get('/tutorials/:id', function(req, res){
-        Tutorial.findById(req.params.id)
-                .populate('reviews')
-                .exec(function(err, tutorial){
-                    if (err){
-                        console.log(err);
-                        res.redirect('/');
-                    } else {
-                        res.render('tutorials/view', { 
-                            tutorial: tutorial,
-                            moment: moment,
-                            title: "View Tutorial"
-                        });
-                    }
-                });
-    });
-
-    // EDIT tutorial ROUTE
-    // GET: /tutorials/:id/edit
-    app.get('/tutorials/:id/edit', middleware.checkTutorialOwnership, function(req, res){
-        Tutorial.findById(req.params.id, function(err, tutorial){
-            if (err) {
-                console.log(err);
-                res.redirect('back')
-            }
-            res.render('tutorials/edit', { 
-                tutorial: tutorial,
-                title: "Edit Tutorial"
+// GET: /tutorials
+module.exports.index = function(req, res){
+    Tutorial.find({}) 
+            .sort({'createdOn': 'desc'})
+            .exec(function(err, tutorials){
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render('tutorials/list', { 
+                        title: 'Tutorials',
+                        tutorials: tutorials,
+                        message: '',    
+                        moment: moment
+                    });
+                }
             });
+}
+
+// GET /tutorials/search?q=query
+module.exports.search = function(req, res) {
+    var query = req.query.q;
+
+    Tutorial.find({'$or':[ { 'title': new RegExp(query,'i')},
+                           { 'description': new RegExp(query,'i')},
+                           { 'content': new RegExp(query,'i')} ]
+                  }).exec(function(err, tutorials) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            var message = '';
+                            var count = tutorials.length;
+                            if (count === 0) {
+                                message = 'Sorry, no matching tutorials were found.';
+                            } else {
+                                message = 'We found ' + count + ' matching tutorials';
+                            }
+                            res.render('tutorials/list', { 
+                                title: 'Tutorials',
+                                tutorials: tutorials,
+                                message: message,
+                                moment: moment
+                            });
+                        }
+                    });
+}
+
+// GET: /tutorials/create
+module.exports.create = function(req, res){
+    res.render('tutorials/create', { title: 'Create Tutorial'});
+}
+
+// POST: /tutorials
+module.exports.doCreate = function(req, res){
+    var title = req.body.title;
+    var description = req.body.description;
+    var markdown = req.body.content;
+    var author = {
+        id: req.user._id,
+        username: req.user.username
+    };
+
+    //parse markdown into html before saving
+    var content = marked(markdown);
+
+    //create tutorial object to save
+    var newTutorial = { 
+        title: title, 
+        description: description,
+        content: content, 
+        author: author,
+        markdown : markdown
+    };
+
+    //add new tutorial to the database
+    Tutorial.create(newTutorial, function(err, tutorial){
+        if (err){
+            console.log(err);
+        } else {
+            console.log('Created new tutorial: ' + tutorial);
+            res.redirect('/tutorials/' + tutorial._id);
+        }
+    });
+}
+
+//GET: /tutorials/:id 
+module.exports.view = function(req, res){
+    Tutorial.findById(req.params.id)
+            .populate('reviews')
+            .exec(function(err, tutorial){
+                if (err){
+                    console.log(err);
+                    res.redirect('/');
+                } else {
+                    res.render('tutorials/view', { 
+                        tutorial: tutorial,
+                        moment: moment,
+                        title: "View Tutorial"
+                    });
+                }
+            });
+}
+
+// GET: /tutorials/:id/edit
+module.exports.edit =, function(req, res){
+    Tutorial.findById(req.params.id, function(err, tutorial){
+        if (err) {
+            console.log(err);
+            res.redirect('back')
+        }
+        res.render('tutorials/edit', { 
+            tutorial: tutorial,
+            title: "Edit Tutorial"
         });
     });
+}
 
-    // UPDATE tutorial ROUTE
-    // PUT: /tutorials/:id
-    app.put('/tutorials/:id', middleware.checkTutorialOwnership, function(req, res) {
-        var title = req.body.tutorial.title;
-        var description = req.body.tutorial.description;
-        var markdown = req.body.tutorial.content;
-        var content = marked(markdown);
+// UPDATE ROUTE
+// PUT: /tutorials/:id
+module.exports.dpUpdate = function(req, res) {
+    var title = req.body.tutorial.title;
+    var description = req.body.tutorial.description;
+    var markdown = req.body.tutorial.content;
+    var content = marked(markdown);
 
-        var updatedTutorial = { 
-            title: title, 
-            description: description,
-            content: content, 
-            markdown: markdown,
-            editedOn: Date.now()
-        };
+    var updatedTutorial = { 
+        title: title, 
+        description: description,
+        content: content, 
+        markdown: markdown,
+        editedOn: Date.now()
+    };
 
-        Tutorial.findByIdAndUpdate(req.params.id, updatedTutorial, function(err, tutorial) {
-           if (err) {
-               console.log(err);
-               res.redirect('/');
-           } else {
-               req.flash('success', 'Tutorial successfully updated!');
-               res.redirect('/tutorials/' + tutorial.id);
-           }
-        });
+    Tutorial.findByIdAndUpdate(req.params.id, updatedTutorial, function(err, tutorial) {
+       if (err) {
+           console.log(err);
+           res.redirect('/');
+       } else {
+           req.flash('success', 'Tutorial successfully updated!');
+           res.redirect('/tutorials/' + tutorial.id);
+       }
     });
+}
 
-    // DESTROY route
-    // DELETE: /tutorials/:id
-    app.delete('/tutorials/:id', middleware.checkTutorialOwnership, function(req, res){
-        Tutorial.findByIdAndRemove(req.params.id, function(err){
-            if (err){
-                console.log(err);
-            }
-            req.flash('success', 'Tutorial successfully deleted!');
-            res.redirect('/');
-        });
+// DESTROY ROUTE
+// DELETE: /tutorials/:id
+module.exports.doDelete = function(req, res){
+    Tutorial.findByIdAndRemove(req.params.id, function(err){
+        if (err){
+            console.log(err);
+        }
+        req.flash('success', 'Tutorial successfully deleted!');
+        res.redirect('/');
     });
-    
 }
