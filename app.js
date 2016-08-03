@@ -11,10 +11,8 @@ var express             = require('express'),
     methodOverride      = require('method-override'),
     User                = require('./models/user'),
     routes              = require('./routes/index'),
-    accountController   = require('./controllers/account'),
     reviewController    = require('./controllers/reviews'),
-    tutorialController  = require('./controllers/tutorials'),
-    userController      = require('./controllers/user')
+    tutorialController  = require('./controllers/tutorials')
     
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
@@ -59,7 +57,6 @@ app.use(function(req, res, next){
 app.use('/', routes);
 tutorialController(app);
 reviewController(app);
-userController(app);
 
 
 // ------------------- 404 HANDLER ------------------------ //
