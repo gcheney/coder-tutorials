@@ -55,9 +55,8 @@ app.use(function(req, res, next){
 });
 
 
-// ------------------- SETUP CONTROLLERS ------------------------ //
+// ------------------- SETUP ROUTES ------------------------ //
 app.use('/', routes);
-accountController(app);
 tutorialController(app);
 reviewController(app);
 userController(app);
