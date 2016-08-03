@@ -70,7 +70,7 @@ module.exports.updatePassword = function(req, res) {
 }
 
 // GET: /account/login
-module.exports.login = function(req, res){
+module.exports.login = function(req, res) {
     res.render('account/login', { title: 'Login' });
 }
 
@@ -83,7 +83,7 @@ module.exports.doLogin = function(req, res) {
 
 
 // GET: /account/logout
-module.exports.logout = function(req, res){
+module.exports.logout = function(req, res) {
     req.logout();
     req.flash('success', 'You have been successfully logged out!');
     res.redirect('/')
