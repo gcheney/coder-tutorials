@@ -1,5 +1,4 @@
 var moment = require('moment');
-var middleware = require('../middleware');
 var Tutorial = require('../models/tutorial');
 
 // LIST USERS TUTORIALS AND INFO
