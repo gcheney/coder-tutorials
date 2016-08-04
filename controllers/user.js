@@ -1,14 +1,19 @@
 var moment = require('moment');
 var Tutorial = require('../models/tutorial');
 
-// LIST USERS TUTORIALS AND INFO
 // GET: /user/username
 module.exports.index = function(req, res) {
+    //Get all of :username tutorials from the db sorted by desc date
+    var username = req.params.username;
+    var title = 'Tutorials by ' + username;
     
-        //Get all of :username tutorials from the db sorted by desc date
-        var username = req.params.username;
-        var title = 'Tutorials by ' + username;
-        Tutorial.find({ 'author.username': username })
+    User.findOne({ 'username': username }, function(err, user) {
+        if (err) {
+            console.log(err);
+            req.flash('error', err.message);
+            return res.redirect('/');
+        } else {
+            Tutorial.find({ 'author.username': user.username })
                 .sort({'createdOn': 'desc'})
                 .exec(function(err, tutorials) {
                     if (err) {
@@ -16,10 +21,12 @@ module.exports.index = function(req, res) {
                     } else {
                         res.render('user/list', { 
                             title: title,
-                            username: username,
+                            user: user,
                             tutorials: tutorials,
                             moment: moment
                         });
                     }
                 });  
+        }
+    });
 }
