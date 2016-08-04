@@ -23,13 +23,20 @@ module.exports.doSignup = function(req, res) {
     
 // GET: /account/manage
 module.exports.manage = function(req, res) {
-    res.render('account/manage', { title: 'My Account'});
+    User.findOne({ 'username': req.user.username }, function(err, user) {
+        if (err) {
+            console.log(err);
+            req.flash('error', err.message);
+            return res.redirect('/');
+        }
+        res.render('account/manage', { title: 'My Account', user: user });
+    });
 }
     
 //update account password
 // POST: /account/manage/password
 module.exports.updatePassword = function(req, res) {
-    User.findOne({ username: req.user.username }, function(err, user) {
+    User.findOne({ 'username': req.user.username }, function(err, user) {
         if (err) {
             console.log(err);
             req.flash('error', err.message);
@@ -67,6 +74,27 @@ module.exports.updatePassword = function(req, res) {
             }
         });     
     });
+}
+
+//update account details
+// POST: /account/manage/details
+module.exports.updateDetails = function(req, res) {
+    var details = req.body.details;
+    var query = {'username': req.user.username};
+
+    //update user password
+    User.update(query, { details: details }, function(err, numAffected) {
+        if (err) {
+            console.log(err);
+            req.flash('error', err.message);
+            return res.redirect('/account/manage');
+        } else {
+            console.log('Updated ' + numAffected.ok + ' documents');
+            console.log('User ' + req.user.username + ' updated their details.');
+            req.flash('success', 'Details successfully updated');
+            res.redirect('/account/manage');
+        }
+    });     
 }
 
 // GET: /account/login
