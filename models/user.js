@@ -3,6 +3,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new mongoose.Schema({
     username: { type: String, required: true, maxlength: 25 },
+    details: { type: String, maxlength: 1000, default: 'This user has not provided any details yet.' },
     password: String
 });
 
