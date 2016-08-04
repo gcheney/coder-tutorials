@@ -19,6 +19,7 @@ router.get('/account/signup', accountController.signup);
 router.post('/account/signup', accountController.doSignup);
 router.get('/account/manage', authMiddleware.isAuthenticated, accountController.manage);
 router.post('/account/manage/password', authMiddleware.isAuthenticated, accountController.updatePassword);
+router.post('/account/manage/details', authMiddleware.isAuthenticated, accountController.updateDetails);
 router.get('/account/login', accountController.login);
 router.get('/account/logout', accountController.logout);
 
