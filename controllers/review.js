@@ -2,9 +2,9 @@ var Tutorial = require('../models/tutorial');
 var Review = require('../models/review');
 
 //GET: /tutorials/:id/reviews/new
-module.exports.new = function(req, res){
-    Tutorial.findById(req.params.id, function(err, tutorial){
-        if(err){
+module.exports.new = function(req, res) {
+    Tutorial.findById(req.params.id, function(err, tutorial) {
+        if(err) {
             console.log(err)
         } else {
             res.render('reviews/new', { 
@@ -16,15 +16,17 @@ module.exports.new = function(req, res){
 }
 
 //POST: /tutorials/:id/reviews/
-module.exports.doCreate = function(req, res){
-    Tutorial.findById(req.params.id, function(err, tutorial){
-       if (err){
+module.exports.doCreate = function(req, res) {
+    Tutorial.findById(req.params.id, function(err, tutorial) {
+       if (err) {
            req.flash('error', 'Something went wrong. We will look into it.');
            console.log(err);
            res.redirect('/');
        } else {
-           console.log(req.body.review); //log new review
-           Review.create(req.body.review, function(err, review){
+            var newReview = { 
+                content: req.body.content
+            };
+           Review.create(newReview, function(err, review) {
                if (err) {
                    console.log(err);
                } else {
@@ -48,12 +50,12 @@ module.exports.doCreate = function(req, res){
 
 // GET: tutorials/:id/reviews/:review_id/edit
 module.exports.edit = function(req, res) {
-    Tutorial.findById(req.params.id, function(err, tutorial){
-        if (err){
+    Tutorial.findById(req.params.id, function(err, tutorial) {
+        if (err) {
             console.log(err);
             return res.redirect('back');
         } 
-        Review.findById(req.params.review_id, function(err, review){
+        Review.findById(req.params.review_id, function(err, review) {
            if (err) {
                console.log(err);
                return res.redirect('back');
@@ -68,11 +70,13 @@ module.exports.edit = function(req, res) {
 }
 
 // POST: tutorials/:id/reviews/:review_id
-module.exports.doUpdate = function(req, res){
-    var reviewToUpdate = req.body.review;
-    reviewToUpdate.editedOn = Date.now();
+module.exports.doUpdate = function(req, res) {
+    var reviewToUpdate = { 
+        content: req.body.content,
+        editedOn: Date.now()
+    };
     Review.findByIdAndUpdate(req.params.review_id, reviewToUpdate, function(err, review) {
-        if (err){
+        if (err) {
             console.log(err);
             res.redirect('back');
         } else {
@@ -83,8 +87,8 @@ module.exports.doUpdate = function(req, res){
 
 // DELETE /tutorials/:id/reviews/:review_id
 module.exports.doDelete = function(req, res) {
-    Review.findByIdAndRemove(req.params.review_id, function(err){
-        if (err){
+    Review.findByIdAndRemove(req.params.review_id, function(err) {
+        if (err) {
             req.flash('error', 'Something went wrong. We will look into it.');
             console.log(err);
             res.redirect('back');

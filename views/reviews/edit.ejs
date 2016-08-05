@@ -3,10 +3,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <h2 class="text-center">Change your Review for <%= tutorial.name %></h2>
-            <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=PUT" method="POST">
+            <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=PUT" method="POST" id="review-form">
                 <div class="form-group">
-                  <label for="review[content]">Edit your Review:</label>
-                  <textarea class="form-control" rows="5" name="review[content]" id="description"><%= review.content %></textarea>
+                  <label for="content">Edit your Review:</label>
+                  <textarea class="form-control" rows="5" name="content" id="description" required><%= review.content %></textarea>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Update Review</button>
