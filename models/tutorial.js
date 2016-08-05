@@ -10,7 +10,7 @@ var tutorialSchema = new mongoose.Schema({
     description: { 
         type: String, 
         required: true, 
-        maxlength: 500 
+        maxlength: 250 
     },
     content: { 
         type: String, 

@@ -5,8 +5,7 @@ var reviewSchema = mongoose.Schema({
     content: {
         type: String, 
         required: true,
-        maxlength: 1000,
-        minlength: 1
+        maxlength: 1000    
     }, 
     createdOn: { 
         type: Date, 
