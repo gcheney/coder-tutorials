@@ -5,7 +5,7 @@
         <div class="col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 text-center">
             <h1 class="text-center">Manage My Account</h1>
             <h3>My Details</h3>
-            <form action="/account/manage/details" method="POST">
+            <form action="/account/manage/details" method="POST" id="details-form">
                 <div class="form-group">
                     <textarea class="form-control" rows="10" name="details" required><%= user.details %></textarea>
                 </div>
@@ -14,7 +14,7 @@
                 </div>
             </form>
             <h3>Change Password</h3>
-            <form action="/account/manage/password" method="POST">
+            <form action="/account/manage/password" method="POST" id="new-password-form">
                 <div class="form-group">
                   <input class="form-control" type="password" name="newPassword" placeholder="New Password" required>
                 </div>

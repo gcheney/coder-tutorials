@@ -4,7 +4,7 @@
         <h1 class="text-center">Editing <%= tutorial.title %></h1>
         <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
             <div class="well clearfix">
-                <form action="/tutorials/<%= tutorial._id %>/?_method=PUT" method="POST" id="edit-form">
+                <form action="/tutorials/<%= tutorial._id %>/?_method=PUT" method="POST" id="tutorial-form">
                     <div class="form-group">
                         <label for="tutorial[title]">Title:</label>
                         <input class="form-control" type="text" value="<%= tutorial.title %>" name="tutorial[title]" required>
