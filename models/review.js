@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 var reviewSchema = mongoose.Schema({
     content: {
         type: String, 
-        required: true
+        required: true,
+        maxlength: 1000,
+        minlength: 1
     }, 
     createdOn: { 
         type: Date, 
