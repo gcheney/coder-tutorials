@@ -25,4 +25,33 @@ $(document).ready(function() {
         confirm('Are you sure you want to delete this review?');
     });
     
+    //form validation rules
+    $("#signup-form").validate({
+        rules: {
+            username: {
+                required: true,
+                maxlength: 26
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 26
+            }
+        },
+        messages: {
+            username: {
+                required: "Please provide a username",
+                maxlength: "Your usernme cannot exceed 26 characters"
+            },
+            password: {
+                required: "Please provide a password",
+                minlength: "Your password must be at least 6 characters long",
+                maxlength: "Your password cannot exceed 26 characters"
+            }
+        },
+        submitHandler: function(form) {
+            form.submit();
+        }
+    });
+    
 });
