@@ -34,6 +34,13 @@ hr {
     display: none;
 }
 
+label.error {
+    color: #FB3A3A;
+    display: inline-block;
+    margin: 5px;
+    padding: 0;
+}
+
 /* Search input styles */
 
 #tutorial-search-input{
