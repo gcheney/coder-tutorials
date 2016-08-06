@@ -25,6 +25,8 @@ module.exports.index = function(req, res){
             .exec(function(err, tutorials){
                 if (err) {
                     console.log(err);
+                    req.flash('error', 'Something went wrong. Error: ' + err.message);
+                    res.redirect('/');
                 } else {
                     res.render('tutorials/list', { 
                         title: 'Tutorials',
@@ -47,6 +49,8 @@ module.exports.search = function(req, res) {
                     .exec(function(err, tutorials) {
                         if (err) {
                             console.log(err);
+                            req.flash('error', 'Something went wrong. Error: ' + err.message);
+                            res.redirect('/tutorials');
                         } else {
                             var message = '';
                             var count = tutorials.length;
@@ -96,6 +100,8 @@ module.exports.doCreate = function(req, res){
     Tutorial.create(newTutorial, function(err, tutorial){
         if (err){
             console.log(err);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
+            res.redirect('/tutorials/create');
         } else {
             console.log('Created new tutorial: ' + tutorial);
             res.redirect('/tutorials/' + tutorial._id);
@@ -110,7 +116,8 @@ module.exports.view = function(req, res){
             .exec(function(err, tutorial){
                 if (err){
                     console.log(err);
-                    res.redirect('/');
+                    req.flash('error', 'Something went wrong. Error: ' + err.message);
+                    res.redirect('/tutorials]');
                 } else {
                     res.render('tutorials/view', { 
                         tutorial: tutorial,
@@ -126,6 +133,7 @@ module.exports.edit = function(req, res){
     Tutorial.findById(req.params.id, function(err, tutorial){
         if (err) {
             console.log(err);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('back')
         }
         res.render('tutorials/edit', { 
@@ -154,7 +162,8 @@ module.exports.doUpdate = function(req, res) {
     Tutorial.findByIdAndUpdate(req.params.id, updatedTutorial, function(err, tutorial) {
        if (err) {
            console.log(err);
-           res.redirect('/');
+           req.flash('error', 'Something went wrong. Error: ' + err.message);
+           res.redirect('/tutorials/edit/' + req.params.id);
        } else {
            req.flash('success', 'Tutorial successfully updated!');
            res.redirect('/tutorials/' + tutorial.id);
@@ -168,6 +177,8 @@ module.exports.doDelete = function(req, res){
     Tutorial.findByIdAndRemove(req.params.id, function(err){
         if (err){
             console.log(err);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
+            res.redirect('/tutorials/' + req.params.id);
         }
         req.flash('success', 'Tutorial successfully deleted!');
         // redirect to user tutorial overview

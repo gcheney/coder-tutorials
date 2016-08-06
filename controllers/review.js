@@ -6,7 +6,7 @@ module.exports.new = function(req, res) {
     Tutorial.findById(req.params.id, function(err, tutorial) {
         if (err) {
             console.log(err);
-            req.flash('error', err.message);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('/tutorials/' + req.params.id);
         } else if (tutorial.author.id.equals(req.user._id)) {
             req.flash('error', 'You are unable to review your own tutorial.');
@@ -25,7 +25,7 @@ module.exports.doCreate = function(req, res) {
     Tutorial.findById(req.params.id, function(err, tutorial) {
        if (err) {
             console.log(err);
-            req.flash('error', err.message);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('/tutorials/' + req.params.id);
        } else {
             var newReview = { 
@@ -34,6 +34,7 @@ module.exports.doCreate = function(req, res) {
             Review.create(newReview, function(err, review) {
                if (err) {
                    console.log(err);
+                   req.flash('error', 'Something went wrong. Error: ' + err.message);
                } else {
                    //add username and id to review
                    review.author.id = req.user._id;
@@ -48,7 +49,7 @@ module.exports.doCreate = function(req, res) {
                    res.redirect('/tutorials/' + tutorial._id);
                }
             });
-       }
+        }
     });
 }
 
@@ -58,11 +59,13 @@ module.exports.edit = function(req, res) {
     Tutorial.findById(req.params.id, function(err, tutorial) {
         if (err) {
             console.log(err);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
             return res.redirect('back');
         } 
         Review.findById(req.params.review_id, function(err, review) {
            if (err) {
                console.log(err);
+               req.flash('error', 'Something went wrong. Error: ' + err.message);
                return res.redirect('back');
            } 
            res.render('reviews/edit', { 
@@ -83,6 +86,7 @@ module.exports.doUpdate = function(req, res) {
     Review.findByIdAndUpdate(req.params.review_id, reviewToUpdate, function(err, review) {
         if (err) {
             console.log(err);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('back');
         } else {
             res.redirect('/tutorials/' + req.params.id);
@@ -94,8 +98,8 @@ module.exports.doUpdate = function(req, res) {
 module.exports.doDelete = function(req, res) {
     Review.findByIdAndRemove(req.params.review_id, function(err) {
         if (err) {
-            req.flash('error', 'Something went wrong. We will look into it.');
             console.log(err);
+            req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('back');
         } else {
             req.flash('success', 'Review successfully deleted');
