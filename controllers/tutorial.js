@@ -43,7 +43,8 @@ module.exports.search = function(req, res) {
     Tutorial.find({'$or':[ { 'title': new RegExp(query,'i')},
                            { 'description': new RegExp(query,'i')},
                            { 'content': new RegExp(query,'i')} ]
-                  }).exec(function(err, tutorials) {
+                  }).sort({'createdOn': 'desc'})
+                    .exec(function(err, tutorials) {
                         if (err) {
                             console.log(err);
                         } else {
