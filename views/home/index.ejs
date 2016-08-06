@@ -11,7 +11,7 @@
                 <% } else { %>
                     <div class="text-center">
                         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Sign In</button>
-                        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#singUpModal">Sign Up</button>
+                        <button class="btn btn-success btn-lg" data-toggle="modal" data-target="#signUpModal">Sign Up</button>
                     </div>
             
                     <!-- Login Modal -->
@@ -54,7 +54,10 @@
 
                                 <!-- Login Modal Footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <p class="pull-left">Don't have an accout yet? 
+                                        <button class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#signUpModal">Sign up!</button>
+                                    </p>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +65,7 @@
                     <!-- Login Modal End -->
             
                     <!-- Sign Up Modal -->
-                    <div class="modal fade" id="singUpModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <!-- Modal Header -->
@@ -101,7 +104,10 @@
 
                                 <!-- Sign Up Modal Footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <p class="pull-left">Already have an account? 
+                                        <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#loginModal">Sign In!</button>
+                                    </p>
+                                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
