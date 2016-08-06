@@ -28,7 +28,9 @@
                 <% if (tutorial.reviews.length === 0) { %>
                     <div class="text-center">
                         <h3>This Tutorial doesn't have any reviews...yet.</h3>
-                        <h4><a href="/tutorials/<%= tutorial._id %>/reviews/new">Why not be the first?</a></h4>
+                        <% if (!currentUser || !tutorial.author.id.equals(currentUser._id)) { %>
+                            <h4><a href="/tutorials/<%= tutorial._id %>/reviews/new">Why not be the first?</a></h4>
+                        <% } %>
                     </div>
                 <% } else { %>
                     <div class="text-right">
