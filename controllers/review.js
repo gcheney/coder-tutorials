@@ -4,8 +4,13 @@ var Review = require('../models/review');
 //GET: /tutorials/:id/reviews/new
 module.exports.new = function(req, res) {
     Tutorial.findById(req.params.id, function(err, tutorial) {
-        if(err) {
-            console.log(err)
+        if (err) {
+            console.log(err);
+            req.flash('error', err.message);
+            res.redirect('/tutorials/' + req.params.id);
+        } else if (tutorial.author.id.equals(req.user._id)) {
+            req.flash('error', 'You are unable to review your own tutorial.');
+            res.redirect('/tutorials/' + req.params.id);
         } else {
             res.render('reviews/new', { 
                 title: 'New Review',
@@ -19,14 +24,14 @@ module.exports.new = function(req, res) {
 module.exports.doCreate = function(req, res) {
     Tutorial.findById(req.params.id, function(err, tutorial) {
        if (err) {
-           req.flash('error', 'Something went wrong. We will look into it.');
-           console.log(err);
-           res.redirect('/');
+            console.log(err);
+            req.flash('error', err.message);
+            res.redirect('/tutorials/' + req.params.id);
        } else {
             var newReview = { 
                 content: req.body.content
             };
-           Review.create(newReview, function(err, review) {
+            Review.create(newReview, function(err, review) {
                if (err) {
                    console.log(err);
                } else {
@@ -42,7 +47,7 @@ module.exports.doCreate = function(req, res) {
                    console.log('New tutorial added: ' + tutorial);
                    res.redirect('/tutorials/' + tutorial._id);
                }
-           });
+            });
        }
     });
 }
