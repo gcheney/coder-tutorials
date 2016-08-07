@@ -14,17 +14,6 @@ module.exports = function(grunt) {
             '!public/scripts/scripts.min.js'
           ]
         },
-        concat: {
-            dist: {
-                src: [
-                      'public/scripts/vendors/jquery.min.js', 
-                      'public/scripts/vendors/bootstrap.min.js',
-                      'public/scripts/plugins/*.js', 
-                      'public/scripts/scripts.min.js'
-                ],
-                dest: 'public/dist/js/bundle.min.js'
-            },
-        },
         uglify: {
           dist: {
             files: {
@@ -33,6 +22,17 @@ module.exports = function(grunt) {
               ]
             }
           }
+        },
+        concat: {
+            dist: {
+                src: [
+                      'public/scripts/vendors/jquery.min.js', 
+                      'public/scripts/vendors/bootstrap.min.js',
+                      'public/scripts/plugins/*.js', 
+                      'public/scripts/main.min.js'
+                ],
+                dest: 'public/dist/js/bundle.min.js'
+            },
         },
         cssmin: {
             target: {
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-githooks');
 
     // Register tasks
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['clean', 'uglify', 'concat', 'cssmin']);
     grunt.registerTask('dev', ['watch']);
 
 };

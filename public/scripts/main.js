@@ -1,3 +1,7 @@
+/*
+ * Custom scripts for Coder tutorials
+ */
+
 (function($, W, D)
 { 
     var JQUERY = {};
