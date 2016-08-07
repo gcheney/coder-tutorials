@@ -1,0 +1,30 @@
+<% include ../partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div class="well">
+                <h1><%= user.username %></h2>
+                <p>
+                    <%= user.details %>
+                    <% if (currentUser && currentUser.username === user.username) { %>
+                        <a href="/account/manage">Edit</a>
+                    <% } %>
+                </p>
+            </div>
+            <h2>Tutorials by <%= user.username %></h2>
+        </div>
+    </div>
+    
+    <% if (tutorials.length !== 0) { %>
+        
+        <% include ../partials/tutorial-list %>
+    
+    <% } else { %>
+        <% if (currentUser && currentUser.username === user.username) { %>
+            <h3 class="text-center">You haven't created any tutorials yet. <a href="/tutorials/create">Get Started!</a></h3>
+        <% } else { %>
+            <h3 class="text-center">This user hasn't created any tutorials...yet.</h3>
+        <% } %>
+    <% } %>
+</div>
+<% include ../partials/footer %>

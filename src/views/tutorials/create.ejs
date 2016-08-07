@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-center">Add a New Coding Tutorial</h1>
+        <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+            <form action="/tutorials/" method="POST" id="tutorial-form">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input class="form-control" type="text" name="title" placeholder="Your title goes here..." required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <input class="form-control" type="text" name="description" placeholder="Describe your tutorial..." required>
+                </div>
+                <div class="form-group">
+                  <label for="content">Content:</label>
+                  <textarea class="form-control" rows="25" name="content" id="content" placeholder="Your tutorial goes here..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-success pull-right" type="submit">Add Your Tutorial</button>
+                </div>
+            </form>
+            <a class="btn btn-primary pull-left" href="/tutorials"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
