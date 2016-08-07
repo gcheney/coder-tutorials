@@ -9,14 +9,15 @@ var express             = require('express'),
     cookieParser        = require('cookie-parser')
     LocalStrategy       = require('passport-local'),
     methodOverride      = require('method-override'),
-    User                = require('./models/user'),
-    routes              = require('./routes/index')
+    User                = require('./src/models/user'),
+    routes              = require('./src/routes/index')
     
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
 var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
+app.set('views', './src/views');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 app.use(morgan('combined'));
@@ -24,7 +25,7 @@ app.use(flash());
 
 
 // ---------- DATABASE CONFIGURATION ----------- //
-require('./data/db');
+require('./src/data/db');
 
 
 // ---------- PASSPORT CONFIGURATION ----------- //
@@ -79,7 +80,9 @@ app.use(function(req, res, next){
 // ------------------- APP LISTEN ------------------------ //
 app.listen(PORT, function(req, res){
     console.log('Server is listening on port ' + PORT); 
-    console.log('http://127.0.0.1:' + PORT);
+    if (process.env.NODE_ENV === 'production') {
+        console.log('http://127.0.0.1:' + PORT);
+    }
 });
 
 
