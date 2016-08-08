@@ -20,7 +20,7 @@ marked.setOptions({
 
 // GET: /tutorials
 module.exports.index = function(req, res){
-    Tutorial.find({}) 
+    Tutorial.find({'isPublished': true}) 
             .sort({'createdOn': 'desc'})
             .exec(function(err, tutorials){
                 if (err) {
@@ -41,11 +41,14 @@ module.exports.index = function(req, res){
 // GET /tutorials/search?q=query
 module.exports.search = function(req, res) {
     var query = req.query.q;
+    var match = [
+        { 'title': new RegExp(query,'i')},              
+        { 'description': new RegExp(query,'i')},
+        { 'content': new RegExp(query,'i')}
+    ];
 
-    Tutorial.find({'$or':[ { 'title': new RegExp(query,'i')},
-                           { 'description': new RegExp(query,'i')},
-                           { 'content': new RegExp(query,'i')} ]
-                  }).sort({'createdOn': 'desc'})
+    Tutorial.find({'isPublished': true, '$or': match })
+                    .sort({'createdOn': 'desc'})
                     .exec(function(err, tutorials) {
                         if (err) {
                             console.log(err);
