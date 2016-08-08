@@ -26,6 +26,7 @@ var tutorialSchema = new mongoose.Schema({
         required: true
     },
     editedOn: { type: Date },
+    isPublished: { type: Boolean, default: false },
     author: {
         id : {
             type: mongoose.Schema.Types.ObjectId,
