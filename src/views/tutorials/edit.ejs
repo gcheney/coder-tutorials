@@ -20,7 +20,15 @@
                         </textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-success pull-left" type="submit">Update Tutorial</button>
+                        <div class="pull-left">
+                            <input type="hidden" name="isPublished" value="<% tutorial.isPublished %>" />
+                            <button class="btn btn-success" name="update" value="Update Tutorial" type="submit">Update Tutorial</button>
+                            <% if (tutorial.isPublished) { %>
+                                <button class="btn btn-warning" name="unpublish" value="Unpublish Tutorial" type="submit">Unpublish Tutorial</button>
+                            <% } else { %>
+                                <button class="btn btn-primary" name="publish" value="Publish Tutorial" type="submit">Publish Tutorial</button>
+                            <% } %>
+                        </div>
                     </div>
                 </form>
                 <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">

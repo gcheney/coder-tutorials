@@ -76,7 +76,6 @@ module.exports.create = function(req, res){
 
 // POST: /tutorials
 module.exports.doCreate = function(req, res){
-    console.log(req.body);
     var title = req.body.title;
     var description = req.body.description;
     var markdown = req.body.content;
@@ -85,9 +84,7 @@ module.exports.doCreate = function(req, res){
         username: req.user.username
     };
     var isPublished = req.body.publish ? true : false;
-
-    //parse markdown into html before saving
-    var content = marked(markdown);
+    var content = marked(markdown); //parse markdown into html before saving
 
     //create tutorial object to save
     var newTutorial = { 
@@ -153,12 +150,23 @@ module.exports.doUpdate = function(req, res) {
     var description = req.body.tutorial.description;
     var markdown = req.body.tutorial.content;
     var content = marked(markdown);
+    
+    // check if published state has changed
+    var isPublished;
+    if (req.body.publish) {
+        isPublished = true;
+    } else if (req.body.unpublish) {
+        isPublished = false;
+    } else {
+        isPublished = req.body.isPublished;
+    }
 
     var updatedTutorial = { 
         title: title, 
         description: description,
         content: content, 
         markdown: markdown,
+        isPublished: isPublished,
         editedOn: Date.now()
     };
 
@@ -168,6 +176,7 @@ module.exports.doUpdate = function(req, res) {
            req.flash('error', 'Something went wrong. Error: ' + err.message);
            res.redirect('/tutorials/edit/' + req.params.id);
        } else {
+           console.log('Tutorial updated: ' + tutorial);
            req.flash('success', 'Tutorial successfully updated!');
            res.redirect('/tutorials/' + tutorial.id);
        }
