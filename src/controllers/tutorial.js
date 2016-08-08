@@ -75,7 +75,7 @@ module.exports.search = function(req, res) {
 
 // GET: /tutorials/create
 module.exports.create = function(req, res){
-    res.render('tutorials/create', { title: 'Create Tutorial'});
+    res.render('tutorials/create', { title: 'Create Tutorial' });
 }
 
 // POST: /tutorials

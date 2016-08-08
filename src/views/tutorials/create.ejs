@@ -19,6 +19,7 @@
                       <textarea class="form-control" rows="25" name="content" id="content" placeholder="Your tutorial goes here..." required></textarea>
                     </div>
                     <div class="form-group">
+                        <button class="btn btn-md btn-default pull-left" id="btn-preview" data-toggle="modal" data-target="#previewModal">Preview</button>
                         <div class="pull-right">
                             <button class="btn btn-primary" name="save" value="Save Tutorial" type="submit">Save Tutorial</button>
                             <button class="btn btn-success" name="publish" value="Publish Tutorial" type="submit">Publish Tutorial</button>
@@ -28,6 +29,9 @@
             </div>
             <a class="btn btn-primary pull-left" href="/tutorials"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
         </div>
+        
+        <% include ../partials/preview-modal %>
+        
     </div>
 </div>
 

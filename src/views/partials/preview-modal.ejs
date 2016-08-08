@@ -1,0 +1,40 @@
+<!-- Preview Modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Preview Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Tutorial Preview
+                </h4>
+            </div>
+
+            <!-- Preview Modal Body -->
+            <div class="modal-body">
+                <div id="preview-content"></div>
+            </div>
+
+            <!-- Preview Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Preview Modal End -->
+
+<!-- Preview Modal script --> 
+<script type="text/javascript" src="/scripts/vendors/marked.min.js"></script>
+<script type="text/javascript">
+    var btnPreview = document.getElementById('btn-preview');
+    btnPreview.addEventListener('click', function(e) {
+        e.preventDefault();
+        var content = document.getElementById('content').value;
+        document.getElementById('preview-content').innerHTML = marked(content);
+    });
+</script>
+<!-- Preview Modal script end -->
