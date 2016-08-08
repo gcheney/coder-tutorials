@@ -76,6 +76,7 @@ module.exports.create = function(req, res){
 
 // POST: /tutorials
 module.exports.doCreate = function(req, res){
+    console.log(req.body);
     var title = req.body.title;
     var description = req.body.description;
     var markdown = req.body.content;
@@ -83,6 +84,7 @@ module.exports.doCreate = function(req, res){
         id: req.user._id,
         username: req.user.username
     };
+    var isPublished = req.body.publish ? true : false;
 
     //parse markdown into html before saving
     var content = marked(markdown);
@@ -93,7 +95,8 @@ module.exports.doCreate = function(req, res){
         description: description,
         content: content, 
         author: author,
-        markdown : markdown
+        markdown : markdown,
+        isPublished: isPublished
     };
 
     //add new tutorial to the database
