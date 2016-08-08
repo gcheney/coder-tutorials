@@ -41,10 +41,11 @@ module.exports.index = function(req, res){
 // GET /tutorials/search?q=query
 module.exports.search = function(req, res) {
     var query = req.query.q;
+    var regex = new RegExp(query,'i');
     var match = [
-        { 'title': new RegExp(query,'i')},              
-        { 'description': new RegExp(query,'i')},
-        { 'content': new RegExp(query,'i')}
+        { 'title': regex},              
+        { 'content': regex},
+        {'author.username': regex}
     ];
 
     Tutorial.find({'isPublished': true, '$or': match })
