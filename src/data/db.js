@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');  
+var refreshDb = require('./refresh');
+var seedDb = require('./seed');
 
 //mongodb://<dbuser>:<dbpassword>@ds035014.mongolab.com:35014/db_name
 var dbURI = 'mongodb://localhost/coder_tutorials';
@@ -9,8 +11,10 @@ mongoose.connect(dbURI);
 
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connected to ' + dbURI);
-    //seed the database
-    //require('./seed')();
+    
+    //refresh and seed database
+    //refreshDb();
+    //seedDb();
 });
 
 mongoose.connection.on('error', function (err) {
