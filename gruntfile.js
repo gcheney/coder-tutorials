@@ -28,6 +28,7 @@ module.exports = function(grunt) {
                 src: [
                       'public/scripts/vendors/jquery.min.js', 
                       'public/scripts/vendors/bootstrap.min.js',
+                      'public/scripts/vendors/marked.min.js',
                       'public/scripts/plugins/*.js', 
                       'public/scripts/main.min.js'
                 ],

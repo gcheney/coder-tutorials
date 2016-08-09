@@ -4,6 +4,10 @@
     display: inline;
 }
 
+#btn-preview {
+    margin-bottom: 10px;
+}
+
 .tutorial-list {
     display:flex; 
     flex-wrap: wrap
@@ -78,18 +82,9 @@ label.error {
 
 
 /* Modal styles */
-.modal-body .form-horizontal .col-sm-2,
-.modal-body .form-horizontal .col-sm-10 {
+.modal-body .form-horizontal {
     width: 100%
 }
-
-.modal-body .form-horizontal .control-label {
-    text-align: left;
-}
-.modal-body .form-horizontal .col-sm-offset-2 {
-    margin-left: 15px;
-}
-
 
 /* Override Bootstrap Styles */
 

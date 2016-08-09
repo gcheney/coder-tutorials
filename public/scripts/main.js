@@ -23,6 +23,14 @@
                 'message': 'Your review has not yet been saved!'
             });
         },
+        btnPreviewAction: function()
+        {
+            $('#btn-preview').on('click', function(e) {
+                e.preventDefault();
+                var content = document.getElementById('content').value;
+                document.getElementById('preview-content').innerHTML = marked(content);
+            });
+        },
         initDeleteConfirmations : function()
         {
             // show popup modal for tutorial delete
@@ -198,6 +206,7 @@
         JQUERY.UTIL.initDeleteConfirmations();
         JQUERY.UTIL.initFlashMessageActions();
         JQUERY.UTIL.initFormValidation();
+        JQUERY.UTIL.btnPreviewAction();
     });
 
 })(jQuery, window, document);
