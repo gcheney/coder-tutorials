@@ -27,8 +27,8 @@
         {
             $('#btn-preview').on('click', function(e) {
                 e.preventDefault();
-                var content = document.getElementById('content').value;
-                document.getElementById('preview-content').innerHTML = marked(content);
+                var content = $('#content').val();
+                $('#preview-content').html(marked(content));
             });
         },
         initDeleteConfirmations : function()
