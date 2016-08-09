@@ -80,12 +80,6 @@ label.error {
   -webkit-transition:width 0.3s ease-in-out;
 }
 
-
-/* Modal styles */
-.modal-body .form-horizontal {
-    width: 100%
-}
-
 /* Override Bootstrap Styles */
 
 .navbar {
@@ -119,13 +113,21 @@ label.error {
     text-align: center;
 }
 
-/* laptops and larger */
+/* media queries */
 @media screen and (min-device-width: 1200px)  { 
     
     /* only exand search input on laptops or larger */
     #navbar-search-input:focus {
         width:420px;
         -webkit-transition:width 0.5s ease-in-out;
+    }
+    
+}
+
+@media screen and (min-width: 768px) {
+    
+    .modal-horizontal {
+        width: 80%; 
     }
     
 }
