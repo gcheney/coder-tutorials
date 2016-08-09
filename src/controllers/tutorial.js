@@ -101,13 +101,15 @@ module.exports.doCreate = function(req, res){
     };
 
     //add new tutorial to the database
-    Tutorial.create(newTutorial, function(err, tutorial){
+    Tutorial.create(newTutorial, function(err, tutorial) {
+        var message = isPublished ? 'New tutorial successfully published' : 'New tutorial successfully saved';
         if (err){
             console.log(err);
             req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('/tutorials/create');
         } else {
             console.log('Created new tutorial: ' + tutorial);
+            req.flash('success', message);
             res.redirect('/tutorials/' + tutorial._id);
         }
     });
@@ -157,10 +159,13 @@ module.exports.doUpdate = function(req, res) {
     
     // check if published state has changed
     var isPublished;
+    var message = 'Tutorial successfully updated';
     if (req.body.publish) {
         isPublished = true;
+        message = 'Tutorial successfully published';
     } else if (req.body.unpublish) {
         isPublished = false;
+        message = 'Tutorial is no longer published';
     } else {
         isPublished = req.body.isPublished;
     }
@@ -181,7 +186,7 @@ module.exports.doUpdate = function(req, res) {
            res.redirect('/tutorials/edit/' + req.params.id);
        } else {
            console.log('Tutorial updated: ' + tutorial);
-           req.flash('success', 'Tutorial successfully updated!');
+           req.flash('success', message);
            res.redirect('/tutorials/' + tutorial.id);
        }
     });
