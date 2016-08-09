@@ -15,12 +15,17 @@
                                 by <a href="/user/<%= tutorial.author.username %>"><%= tutorial.author.username %></a>
                             </small>
                         </h4>
+                        <% if (currentUser && tutorial.author.id.equals(currentUser._id)) { %>
+                            <% if (tutorial.isPublished) { %>
+                                <h4 class="text-success">Published</h4>
+                            <% } else { %>
+                                <h4 class="text-danger">Unpublished</h4>
+                            <% } %>
+                            <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Tutorial
+                            </a>      
+                        <% } %>
                     </div>
-                    <% if (currentUser && tutorial.author.id.equals(currentUser._id)) { %>
-                        <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning">
-                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Tutorial
-                        </a>       
-                    <% } %>
                 </div>
             </div>
         <hr>
