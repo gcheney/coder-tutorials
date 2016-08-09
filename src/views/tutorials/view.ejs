@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="thumbnail">
+            <div class="well clearfix">
                 <div class="caption-full">
                     <h1 class="text-center"><%= tutorial.title %></h1>
                     <h3 class="text-center"><%= tutorial.description %></h3>
@@ -15,21 +15,22 @@
                         <% } %>
                         by <a href="/user/<%= tutorial.author.username %>"><b><%= tutorial.author.username %></b></a>
                     </p>
-                    <div id="content">
-                        <%- tutorial.content %>
-                    </div>
                     <% if (currentUser && tutorial.author.id.equals(currentUser._id)) { %>
-                        <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Tutorial</a>
-                        <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">
-                            <button class="btn btn-danger" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete Tutorial</button>
-                        </form>  
-                    
+                        <div class="well clearfix">
+                            <a href="/tutorials/<%= tutorial._id %>/edit" class="btn btn-warning pull-left"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Tutorial</a>
+                            <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">
+                                <button class="btn btn-danger pull-right" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete Tutorial</button>
+                            </form>  
+                        </div>
                         <% include ../partials/confirm-modal %>
                     
                     <% } %>
+                    <div id="content">
+                        <%- tutorial.content %>
+                    </div>
                 </div>
             </div>
-            <div class="well">
+            <div class="well clearfix">
                 <% if (tutorial.reviews.length === 0) { %>
                     <div class="text-center">
                         <h3>This Tutorial doesn't have any reviews...yet.</h3>

@@ -4,6 +4,7 @@
         <h1 class="text-center">Editing <%= tutorial.title %></h1>
         <div class="col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
             <div class="well clearfix">
+                <button class="btn btn-md btn-default pull-right" id="btn-preview" data-toggle="modal" data-target="#previewModal">Preview</button>
                 <form action="/tutorials/<%= tutorial._id %>/?_method=PUT" method="POST" id="tutorial-form">
                     <div class="form-group">
                         <label for="tutorial[title]">Title:</label>
@@ -37,6 +38,8 @@
             </div>
             <a class="btn btn-primary" href="/tutorials/<%= tutorial._id %>"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
         </div>
+        
+        <% include ../partials/preview-modal %>
     </div>
 </div>
 <% include ../partials/footer %>
