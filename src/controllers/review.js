@@ -46,6 +46,7 @@ module.exports.doCreate = function(req, res) {
                    tutorial.reviews.push(review);
                    tutorial.save();
                    console.log('New tutorial added: ' + tutorial);
+                   req.flash('success', 'Your review has been successfully saved.');
                    res.redirect('/tutorials/' + tutorial._id);
                }
             });
@@ -89,6 +90,7 @@ module.exports.doUpdate = function(req, res) {
             req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('back');
         } else {
+            req.flash('success', 'Your review has been successfully edited.');
             res.redirect('/tutorials/' + req.params.id);
         }
     })
@@ -102,7 +104,7 @@ module.exports.doDelete = function(req, res) {
             req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('back');
         } else {
-            req.flash('success', 'Review successfully deleted');
+            req.flash('success', 'Your review has been deleted successfully');
             res.redirect('/tutorials/' + req.params.id);
         }
     });
