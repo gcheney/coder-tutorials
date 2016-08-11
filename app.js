@@ -59,7 +59,8 @@ app.use(function(req, res, next){
 app.use('/', homeRoutes);
 app.use('/account', accountRoutes);
 app.use('/tutorials', tutorialRoutes);
-app.use('/tutorials/:tutorial_id/reviews',function(req,res,next){
+app.use('/tutorials/:tutorial_id/reviews', function(req,res,next) {
+    // middleware to make tutorial_id param available in review routes
     req.tutorial_id = req.params.tutorial_id;
     next();
 }, reviewRoutes);
