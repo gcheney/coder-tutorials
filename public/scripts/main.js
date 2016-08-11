@@ -45,8 +45,12 @@
             });
 
             // show confirm box for review delete
-            $('.btn-delete').on('click', function() {
-                confirm('Are you sure you want to delete this review?');
+            $('.btn-delete').on('click', function(e) {
+                if (confirm('Are you sure you want to delete this review?')) {
+                    // allow form submission
+                } else {
+                    e.preventDefault();
+                }
             });
         },
         initFlashMessageActions: function()
