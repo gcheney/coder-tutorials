@@ -3,14 +3,15 @@ var Review = require('../models/review');
 
 //GET: /tutorials/:id/reviews/new
 module.exports.new = function(req, res) {
-    Tutorial.findById(req.params.id, function(err, tutorial) {
+    console.log(req.tutorial_id);
+    Tutorial.findById(req.tutorial_id, function(err, tutorial) {
         if (err) {
             console.log(err);
             req.flash('error', 'Something went wrong. Error: ' + err.message);
-            res.redirect('/tutorials/' + req.params.id);
+            res.redirect('/tutorials/' + req.tutorial_id);
         } else if (tutorial.author.id.equals(req.user._id)) {
             req.flash('error', 'You are unable to review your own tutorial.');
-            res.redirect('/tutorials/' + req.params.id);
+            res.redirect('/tutorials/' + req.tutorial_id);
         } else {
             res.render('reviews/new', { 
                 title: 'New Review',
@@ -22,11 +23,11 @@ module.exports.new = function(req, res) {
 
 //POST: /tutorials/:id/reviews/
 module.exports.doCreate = function(req, res) {
-    Tutorial.findById(req.params.id, function(err, tutorial) {
+    Tutorial.findById(req.tutorial_id, function(err, tutorial) {
        if (err) {
             console.log(err);
             req.flash('error', 'Something went wrong. Error: ' + err.message);
-            res.redirect('/tutorials/' + req.params.id);
+            res.redirect('/tutorials/' + req.tutorial_id);
        } else {
             var newReview = { 
                 content: req.body.content
@@ -57,7 +58,7 @@ module.exports.doCreate = function(req, res) {
 
 // GET: tutorials/:id/reviews/:review_id/edit
 module.exports.edit = function(req, res) {
-    Tutorial.findById(req.params.id, function(err, tutorial) {
+    Tutorial.findById(req.tutorial_id, function(err, tutorial) {
         if (err) {
             console.log(err);
             req.flash('error', 'Something went wrong. Error: ' + err.message);
@@ -91,7 +92,7 @@ module.exports.doUpdate = function(req, res) {
             res.redirect('back');
         } else {
             req.flash('success', 'Your review has been successfully edited.');
-            res.redirect('/tutorials/' + req.params.id);
+            res.redirect('/tutorials/' + req.tutorial_id);
         }
     })
 }
@@ -105,7 +106,7 @@ module.exports.doDelete = function(req, res) {
             res.redirect('back');
         } else {
             req.flash('success', 'Your review has been deleted successfully');
-            res.redirect('/tutorials/' + req.params.id);
+            res.redirect('/tutorials/' + req.tutorial_id);
         }
     });
 }
