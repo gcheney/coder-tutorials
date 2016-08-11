@@ -19,7 +19,7 @@ module.exports.index = function(req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.render('user/list', { 
+                        res.render('users/list', { 
                             title: title,
                             user: user,
                             tutorials: tutorials,
