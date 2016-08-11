@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var authMiddleware = require('../middleware/auth');
 var tutorialsController = require('../controllers/tutorials');
+var reviewsController = require('../controllers/reviews');
 
 router.get('/', tutorialsController.index); 
 
@@ -23,5 +24,20 @@ router.put('/:id', authMiddleware.checkTutorialOwnership,
 
 router.delete('/:id', authMiddleware.checkTutorialOwnership, 
               tutorialsController.doDelete);
+
+router.get('/:id/reviews/new', authMiddleware.isAuthenticated, 
+           reviewsController.new);
+
+router.post('/:id/reviews/', authMiddleware.isAuthenticated, 
+            reviewsController.doCreate);
+
+router.get('/:id/reviews/:review_id/edit', authMiddleware.checkReviewOwnership, 
+           reviewsController.edit);
+
+router.put('/:id/reviews/:review_id', authMiddleware.checkReviewOwnership, 
+           reviewsController.doUpdate);
+
+router.delete('/:id/reviews/:review_id', authMiddleware.checkReviewOwnership, 
+              reviewsController.doDelete);
 
 module.exports = router;

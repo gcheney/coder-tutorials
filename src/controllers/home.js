@@ -4,7 +4,7 @@ var Tutorial = require('../models/tutorial');
 // GET: /
 module.exports.index =  function(req, res) {
         //Get all tutorials from the db sorted by desc date
-        Tutorial.find({})
+        Tutorial.find({'isPublished': true})
                 .sort({'createdOn': 'desc'})
                 .limit(5)
                 .exec(function(err, tutorials) {

@@ -18,5 +18,4 @@ router.put('/:review_id', authMiddleware.checkReviewOwnership,
 router.delete('/:review_id', authMiddleware.checkReviewOwnership, 
               reviewsController.doDelete);
 
-
 module.exports = router;

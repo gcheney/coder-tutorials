@@ -13,9 +13,7 @@ var express             = require('express'),
     homeRoutes          = require('./src/routes'),
     accountRoutes       = require('./src/routes/account'),
     tutorialRoutes      = require('./src/routes/tutorials'),
-    userRoutes          = require('./src/routes/users'),
-    reviewRoutes        = require('./src/routes/reviews')
-    
+    userRoutes          = require('./src/routes/users')    
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
 var PORT = process.env.PORT || 3000;
@@ -60,7 +58,6 @@ app.use(function(req, res, next){
 app.use('/', homeRoutes);
 app.use('/account', accountRoutes);
 app.use('/tutorials', tutorialRoutes);
-app.use('/tutorials/:id/reviews', reviewRoutes);
 app.use('/users', userRoutes);
 
 
