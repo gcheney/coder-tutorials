@@ -13,6 +13,7 @@ var express             = require('express'),
     homeRoutes          = require('./src/routes'),
     accountRoutes       = require('./src/routes/account'),
     tutorialRoutes      = require('./src/routes/tutorials'),
+    reviewRoutes        = require('./src/routes/reviews')
     userRoutes          = require('./src/routes/users')    
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
@@ -58,6 +59,10 @@ app.use(function(req, res, next){
 app.use('/', homeRoutes);
 app.use('/account', accountRoutes);
 app.use('/tutorials', tutorialRoutes);
+app.use('/tutorials/:tutorial_id/reviews',function(req,res,next){
+    req.tutorial_id = req.params.tutorial_id;
+    next();
+}, reviewRoutes);
 app.use('/users', userRoutes);
 
 
