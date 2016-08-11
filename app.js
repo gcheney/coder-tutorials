@@ -10,7 +10,11 @@ var express             = require('express'),
     LocalStrategy       = require('passport-local'),
     methodOverride      = require('method-override'),
     User                = require('./src/models/user'),
-    routes              = require('./src/routes/index')
+    homeRoutes          = require('./src/routes'),
+    accountRoutes       = require('./src/routes/account'),
+    tutorialRoutes      = require('./src/routes/tutorials'),
+    userRoutes          = require('./src/routes/users'),
+    reviewRoutes        = require('./src/routes/reviews')
     
     
 // ------------------- INITIAL APP SETTINGS ------------------------ //
@@ -53,7 +57,11 @@ app.use(function(req, res, next){
 
 
 // ------------------- SETUP ROUTES ------------------------ //
-app.use('/', routes);
+app.use('/', homeRoutes);
+app.use('/account', accountRoutes);
+app.use('/tutorials', tutorialRoutes);
+app.use('/tutorials/:id/reviews', reviewRoutes);
+app.use('/users', userRoutes);
 
 
 // ------------------- 404 HANDLER ------------------------ //
@@ -80,7 +88,7 @@ app.use(function(req, res, next){
 // ------------------- APP LISTEN ------------------------ //
 app.listen(PORT, function(req, res){
     console.log('Server is listening on port ' + PORT); 
-    if (process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'development') {
         console.log('http://127.0.0.1:' + PORT);
     }
 });
