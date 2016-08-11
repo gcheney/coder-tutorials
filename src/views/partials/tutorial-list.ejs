@@ -12,7 +12,7 @@
                             <% } else { %>
                                 Created on <%= moment(tutorial.createdOn).format('MMMM Do YYYY, h:mm a') %>
                             <% } %>
-                                by <a href="/user/<%= tutorial.author.username %>"><%= tutorial.author.username %></a>
+                                by <a href="/users/<%= tutorial.author.username %>"><%= tutorial.author.username %></a>
                             </small>
                         </h4>
                         <% if (currentUser && tutorial.author.id.equals(currentUser._id)) { %>
