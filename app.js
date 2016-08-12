@@ -19,6 +19,7 @@ var express             = require('express'),
 // ------------------- INITIAL APP SETTINGS ------------------------ //
 var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
 app.use(express.static(__dirname + '/public'));
@@ -32,7 +33,11 @@ require('./src/data/db');
 
 
 // ---------- PASSPORT CONFIGURATION ----------- //
-app.use(cookieParser());
+var secret = 'topsecret';
+if (process.env.NODE_ENV === 'production') {
+    secret = process.env.SESSION_SECRET;
+}
+
 app.use(expressSession({
     secret: 'topsecret',
     resave: false, 
