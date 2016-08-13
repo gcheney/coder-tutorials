@@ -1,9 +1,24 @@
+var marked = require('marked');
 var Tutorial = require('../models/tutorial');
 var Review = require('../models/review');
 
+// set options for marked
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code) {
+        return require('highlight.js').highlightAuto(code).value;
+    }
+});
+
 //GET: /tutorials/:id/reviews/new
 module.exports.new = function(req, res) {
-    console.log(req.tutorial_id);
     Tutorial.findById(req.tutorial_id, function(err, tutorial) {
         if (err) {
             console.log(err);
@@ -29,9 +44,14 @@ module.exports.doCreate = function(req, res) {
             req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('/tutorials/' + req.tutorial_id);
        } else {
+           
+            var markdown = req.body.markdown;
+            var content = marked(markdown);
             var newReview = { 
-                content: req.body.content
+                markdown: markdown,
+                content: content
             };
+            
             Review.create(newReview, function(err, review) {
                if (err) {
                    console.log(err);
@@ -81,10 +101,15 @@ module.exports.edit = function(req, res) {
 
 // POST: tutorials/:id/reviews/:review_id
 module.exports.doUpdate = function(req, res) {
+    var markdown = req.body.markdown;
+    var content = marked(markdown);
+    
     var reviewToUpdate = { 
-        content: req.body.content,
+        markdown: markdown,
+        content: content,
         editedOn: Date.now()
     };
+    
     Review.findByIdAndUpdate(req.params.review_id, reviewToUpdate, function(err, review) {
         if (err) {
             console.log(err);

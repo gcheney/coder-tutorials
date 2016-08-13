@@ -54,7 +54,7 @@
                                 <% } %>
                                 <br />
                                 <br />
-                                <p><%= review.content %></p>
+                                <p><%- review.content %></p>
                                 <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
                                     <a href="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>/edit" class="btn btn-sm btn-warning pull-right"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
                                     <form action="/tutorials/<%= tutorial._id %>/reviews/<%= review._id %>?_method=DELETE" 

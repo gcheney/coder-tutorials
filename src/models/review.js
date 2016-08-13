@@ -5,8 +5,13 @@ var reviewSchema = mongoose.Schema({
     content: {
         type: String, 
         required: true,
-        maxlength: 1000    
+        maxlength: 3000    
     }, 
+    markdown: {
+        type: String, 
+        required: true,
+        maxlength: 3000 
+    },
     createdOn: { 
         type: Date, 
         required: true,

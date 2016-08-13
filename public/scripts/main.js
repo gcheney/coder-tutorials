@@ -110,13 +110,13 @@
                 rules: {
                     content: {
                         required: true,
-                        maxlength: 1000            
+                        maxlength: 3000            
                     }
                 },
                 messages: {
                     content: {
                         required: 'Please provide a full review',
-                        maxlength: 'Please keep your review under 1000 characters'
+                        maxlength: 'Please keep your review under 3000 characters'
                     }
                 },
                 submitHandler: function(form) {
