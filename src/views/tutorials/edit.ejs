@@ -8,16 +8,16 @@
                 <button class="btn btn-md btn-default pull-right" id="btn-preview" data-toggle="modal" data-target="#preview-modal">Preview</button>
                 <form action="/tutorials/<%= tutorial._id %>/?_method=PUT" method="POST" id="tutorial-form">
                     <div class="form-group">
-                        <label for="tutorial[title]">Title:</label>
-                        <input class="form-control" type="text" value="<%= tutorial.title %>" name="tutorial[title]" required>
+                        <label for="title">Title:</label>
+                        <input class="form-control" type="text" value="<%= tutorial.title %>" name="title" required>
                     </div>
                     <div class="form-group">
-                        <label for="tutorial[description]">Description:</label>
-                        <input class="form-control" type="text" value="<%= tutorial.description %>" name="tutorial[description]" required>
+                        <label for="description">Description:</label>
+                        <input class="form-control" type="text" value="<%= tutorial.description %>" name="description" required>
                     </div>
                     <div class="form-group">
-                        <label for="tutorial[markdown]">Content:</label>
-                        <textarea class="form-control" rows="20" name="tutorial[markdown]" id="markdown" required><%=tutorial.markdown%></textarea>
+                        <label for="markdown">Content:</label>
+                        <textarea class="form-control" rows="20" name="markdown" id="markdown" required><%=tutorial.markdown%></textarea>
                     </div>
                     <div class="form-group">
                         <div class="pull-left">

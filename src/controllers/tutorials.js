@@ -152,9 +152,9 @@ module.exports.edit = function(req, res){
 // UPDATE ROUTE
 // PUT: /tutorials/:id
 module.exports.doUpdate = function(req, res) {
-    var title = req.body.tutorial.title;
-    var description = req.body.tutorial.description;
-    var markdown = req.body.tutorial.markdown;
+    var title = req.body.title;
+    var description = req.body.description;
+    var markdown = req.body.markdown;
     var content = marked(markdown);
     
     // check if published state has changed

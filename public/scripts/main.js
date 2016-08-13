@@ -108,15 +108,15 @@
             // review form validation rules
             $('#review-form').validate({
                 rules: {
-                    content: {
+                    markdown: {
                         required: true,
                         maxlength: 3000            
                     }
                 },
                 messages: {
-                    content: {
+                    markdown: {
                         required: 'Please provide a full review',
-                        maxlength: 'Please keep your review under 3000 characters'
+                        maxlength: 'Please keep your review content under 3000 characters'
                     }
                 },
                 submitHandler: function(form) {
@@ -180,7 +180,7 @@
                     },
                     description: {
                         required: true,
-                        maxlength: 250
+                        maxlength: 200
                     },
                     content: 'required'
                 },
@@ -190,7 +190,7 @@
                         maxlength: 'Your tutorials title cannot exceed 100 characters'
                     },
                     description: {
-                        required: 'Please include a brief (250 character) tutorial description',
+                        required: 'Please include a brief (200 character) tutorial description',
                         maxlength: 'Your description cannot exceed 250 characters'
                     },
                     content: {
