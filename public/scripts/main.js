@@ -27,8 +27,8 @@
         {
             $('#btn-preview').on('click', function(e) {
                 e.preventDefault();
-                var content = $('#content').val();
-                $('#preview-content').html(marked(content));
+                var markdown = $('#markdown').val();
+                $('#preview-content').html(marked(markdown));
             });
         },
         initDeleteConfirmations : function()
