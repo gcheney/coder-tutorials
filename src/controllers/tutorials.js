@@ -43,9 +43,9 @@ module.exports.search = function(req, res) {
     var query = req.query.q;
     var regex = new RegExp(query,'i');
     var match = [
-        { 'title': regex},              
-        { 'content': regex},
-        {'author.username': regex}
+        { 'title': regex },              
+        { 'content': regex },
+        { 'author.username': regex }
     ];
 
     Tutorial.find({'isPublished': true, '$or': match })
@@ -82,7 +82,7 @@ module.exports.create = function(req, res){
 module.exports.doCreate = function(req, res){
     var title = req.body.title;
     var description = req.body.description;
-    var markdown = req.body.content;
+    var markdown = req.body.markdown;
     var author = {
         id: req.user._id,
         username: req.user.username
@@ -154,7 +154,7 @@ module.exports.edit = function(req, res){
 module.exports.doUpdate = function(req, res) {
     var title = req.body.tutorial.title;
     var description = req.body.tutorial.description;
-    var markdown = req.body.tutorial.content;
+    var markdown = req.body.tutorial.markdown;
     var content = marked(markdown);
     
     // check if published state has changed
