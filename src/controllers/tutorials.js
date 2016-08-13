@@ -203,6 +203,6 @@ module.exports.doDelete = function(req, res){
         }
         req.flash('success', 'Tutorial successfully deleted!');
         // redirect to user tutorial overview
-        res.redirect('/user/' + req.user.username);
+        res.redirect('/users/' + req.user.username);
     });
 }
