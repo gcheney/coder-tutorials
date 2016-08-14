@@ -13,7 +13,18 @@ module.exports.index = function(req, res) {
             req.flash('error', err.message);
             return res.redirect('/');
         } else {
-            Tutorial.find({ 'author.username': user.username })
+            var query = {};
+            
+            if (req.user && req.user.username === username) {
+                query = { 'author.username': user.username };
+            } else {
+                query = { 
+                    'author.username': user.username,
+                    'isPublished': true 
+                };
+            }
+            
+            Tutorial.find(query)
                 .sort({'createdOn': 'desc'})
                 .exec(function(err, tutorials) {
                     if (err) {
