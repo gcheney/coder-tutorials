@@ -1,6 +1,11 @@
 <br />
 <br />    
 <br />  
+    <% if (!currentUser) { %>
+        <% include ./login-modal %>
+        <% include ./signup-modal %>
+    <% } %>
+
     <!-- footer -->
     <footer class="footer">
         <div class="text-center text-muted">
