@@ -123,13 +123,19 @@ module.exports.view = function(req, res){
                 if (err){
                     console.log(err);
                     req.flash('error', 'Something went wrong. Error: ' + err.message);
-                    res.redirect('/tutorials]');
+                    res.redirect('/tutorials');
                 } else {
-                    res.render('tutorials/view', { 
-                        tutorial: tutorial,
-                        moment: moment,
-                        title: "View Tutorial"
-                    });
+                    var user = req.user;
+                    if (tutorial.isPublished || (user && tutorial.author.id.equals(user._id))) {
+                        res.render('tutorials/view', { 
+                            tutorial: tutorial,
+                            moment: moment,
+                            title: "View Tutorial"
+                        });
+                    } else {
+                        req.flash('error', 'You do not have permission to access this page.');
+                        res.redirect('/tutorials');
+                    }
                 }
             });
 }
