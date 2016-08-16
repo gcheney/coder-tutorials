@@ -28,12 +28,12 @@ module.exports.index = function(req, res) {
     Tutorial.count(query, function(err, count) {
         if (err) {
             console.log(err);
-        }
+        }   
         Tutorial.find(query)
             .sort({'createdOn': 'desc'})
             .skip((page - 1) * pageSize)
             .limit(pageSize)
-            .exec(function(err, tutorials){
+            .exec(function(err, tutorials) {
                 if (err) {
                     console.log(err);
                     req.flash('error', 'Something went wrong. Error: ' + err.message);
@@ -41,7 +41,7 @@ module.exports.index = function(req, res) {
                 } else {
                     var totalPages = Math.ceil(count / pageSize);
                     var url = req.baseUrl + req.path;
-                    var pagingInfo = {
+                    var pagination = {
                         'currentPage': page,
                         'totalPages': totalPages,
                         'url': url
@@ -51,7 +51,7 @@ module.exports.index = function(req, res) {
                         tutorials: tutorials,
                         message: '',    
                         moment: moment,
-                        pagingInfo: pagingInfo
+                        pagination: pagination
                     });
                 }
             });
