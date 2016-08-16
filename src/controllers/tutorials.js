@@ -18,13 +18,39 @@ marked.setOptions({
 });
 
 // for pagination
-const pageSize = 1;
+const pageSize = 2;
 
 // GET: /tutorials
 module.exports.index = function(req, res) {
     var page = req.query.page || 1;
-    var query = { 'isPublished': true };
     
+    Tutorial.countAndFind({ 'isPublished': true })
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .exec(function(err, tutorials, tutorialCount) {
+            if (err) {
+                console.log(err);
+                req.flash('error', 'Something went wrong. Error: ' + err.message);
+                res.redirect('/');
+            } else {
+                var totalPages = Math.ceil(tutorialCount / pageSize);
+                var url = req.baseUrl + req.path;
+                var pagination = {
+                    'currentPage': page,
+                    'totalPages': totalPages,
+                    'url': url
+                };
+                res.render('tutorials/list', { 
+                    title: 'Tutorials',
+                    tutorials: tutorials,
+                    message: '',    
+                    moment: moment,
+                    pagination: pagination
+                });
+            }
+    });
+    
+    /*
     Tutorial.count(query, function(err, count) {
         if (err) {
             console.log(err);
@@ -56,6 +82,7 @@ module.exports.index = function(req, res) {
                 }
             });
     });
+    */
 }
 
 // GET /tutorials/search?q=query
