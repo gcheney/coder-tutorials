@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var countAndFind = require('mongoose-count-and-find');
 
 // Database schema setup
 var tutorialSchema = new mongoose.Schema({
@@ -26,7 +27,10 @@ var tutorialSchema = new mongoose.Schema({
         required: true
     },
     editedOn: { type: Date },
-    isPublished: { type: Boolean, default: false },
+    isPublished: { 
+        type: Boolean, 
+        default: false 
+    },
     author: {
         id : {
             type: mongoose.Schema.Types.ObjectId,
@@ -39,5 +43,7 @@ var tutorialSchema = new mongoose.Schema({
         ref: 'Review'
     }]
 });
+
+tutorialSchema.plugin(countAndFind);
 
 module.exports = mongoose.model('Tutorial', tutorialSchema);
