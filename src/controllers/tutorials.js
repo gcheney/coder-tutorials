@@ -39,7 +39,13 @@ module.exports.index = function(req, res) {
                     req.flash('error', 'Something went wrong. Error: ' + err.message);
                     res.redirect('/');
                 } else {
-                    
+                    var totalPages = Math.ceil(count / pageSize);
+                    var url = req.baseUrl + req.path;
+                    var pagingInfo = {
+                        'currentPage': page,
+                        'totalPages': totalPages,
+                        'url': url
+                    };
                     res.render('tutorials/list', { 
                         title: 'Tutorials',
                         tutorials: tutorials,

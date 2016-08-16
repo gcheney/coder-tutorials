@@ -1,0 +1,9 @@
+<div class="text-center">
+    <%  for (var i = 1; i <= pagingInfo.totalPages; i++) {  
+        if (i == pagingInfo.currentPage) { %>
+            <a href="<%= pagingInfo.url %>?page=<%= i %>" class="btn btn-primary selected"><%= i %></a>
+        <% } else { %>
+            <a href="<%= pagingInfo.url %>?page=<%= i %>" class="btn btn-default"><%= i %></a>
+        <%  } 
+    } %>
+</div>
