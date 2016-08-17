@@ -13,17 +13,24 @@ It conatins the following features:
 * Ability to Create, Read, Update and Delete tutorials using [Markdown](https://daringfireball.net/projects/markdown/syntax)
 * Ability to Create, Read, Update and Delete reviews of tutorials using [Markdown](https://daringfireball.net/projects/markdown/syntax)
 * Ability to publish and unpublish tutorials
+* Search by title, content , and author
+* Search only specific users tutorials by title and content
 
 
 It was built using:
 
-* [Node.js](http://nodejs.org/en/)
-* [Express.js](http://expressjs.com/)
+* [Node](http://nodejs.org/en/)
+* [Express](http://expressjs.com/)
 * [EJS](http://www.embeddedjs.com/)
 * [MongoDB](http://www.mongodb.com/)
 * [Mongoose](http://mongoosejs.com/)
-* [Passport.js](http://passportjs.org/)
-* [Marked.js](http://github.com/chjj/marked)
+* [Passport](http://passportjs.org/)
+* [Grunt](http://gruntjs.com/)
 * [jQuery](http://jquery.com/)
 * HTML/CSS
+
+It is deployed and running on:
+
+* [Heroku](https://www.heroku.com/)
+* [mLab](https://mlab.com/)
 
