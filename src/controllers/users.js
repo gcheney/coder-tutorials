@@ -47,12 +47,16 @@ module.exports.index = function(req, res) {
                             req.flash('error', 'Something went wrong. Error: ' + err.message);
                             res.redirect('/tutorials');
                         } else {
-                            var message = 'There are no tutorials here...yet.';
+                            
+                            var message = '';
                             if (queryString && tutorialCount === 0) {
                                 message = 'Sorry, no matching tutorials were found.';
-                            } else if (queryString) {
+                            } else if (queryString && tutorialCount !== 0) {
                                 message = 'We found ' + tutorialCount + ' matching tutorials';
+                            } else if (tutorialCount === 0) {
+                                message = 'There are no tutorials here...yet.';
                             }
+                            
                             var totalPages = Math.ceil(tutorialCount / pageSize);
                             var url = req.baseUrl + req.path;
                             var pagination = {
