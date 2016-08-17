@@ -1,9 +1,9 @@
 <div class="text-center">
     <%  for (var i = 1; i <= pagination.totalPages; i++) {  
         if (i == pagination.currentPage) { %>
-            <a href="<%= pagination.url %>?page=<%= i %>" class="btn btn-primary selected"><%= i %></a>
+            <a href="<%= pagination.url %>?page=<%= i %><% if (pagination.q) { %>&q=<%= pagination.q %><% } %>" class="btn btn-primary selected"><%= i %></a>
         <% } else { %>
-            <a href="<%= pagination.url %>?page=<%= i %>" class="btn btn-default"><%= i %></a>
+            <a href="<%= pagination.url %>?page=<%= i %><% if (pagination.q) { %>&q=<%= pagination.q %><% } %>" class="btn btn-default"><%= i %></a>
         <%  } 
     } %>
 </div>
