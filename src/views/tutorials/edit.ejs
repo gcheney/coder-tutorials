@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <div class="pull-left">
-                            <input type="hidden" name="isPublished" value="<% tutorial.isPublished %>" />
+                            <input type="hidden" name="isPublished" value="<%= tutorial.isPublished %>" />
                             <button class="btn btn-success" name="update" value="Update Tutorial" type="submit">Update Tutorial</button>
                             <% if (tutorial.isPublished) { %>
                                 <button class="btn btn-warning" name="unpublish" value="Unpublish Tutorial" type="submit">Unpublish Tutorial</button>

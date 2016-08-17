@@ -162,7 +162,7 @@ module.exports.doUpdate = function(req, res) {
     var content = marked(markdown);
     
     // check if published state has changed
-    var isPublished;
+    var isPublished = req.body.isPublished;
     var message = 'Tutorial successfully updated';
     if (req.body.publish) {
         isPublished = true;
@@ -170,9 +170,7 @@ module.exports.doUpdate = function(req, res) {
     } else if (req.body.unpublish) {
         isPublished = false;
         message = 'Tutorial is no longer published';
-    } else {
-        isPublished = req.body.isPublished;
-    }
+    } 
 
     var updatedTutorial = { 
         title: title, 
