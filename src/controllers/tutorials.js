@@ -18,106 +18,57 @@ marked.setOptions({
 });
 
 // for pagination
-const pageSize = 2;
+const pageSize = 5;
 
 // GET: /tutorials
 module.exports.index = function(req, res) {
     var page = req.query.page || 1;
-    
-    Tutorial.countAndFind({ 'isPublished': true })
-        .skip((page - 1) * pageSize)
-        .limit(pageSize)
-        .exec(function(err, tutorials, tutorialCount) {
-            if (err) {
-                console.log(err);
-                req.flash('error', 'Something went wrong. Error: ' + err.message);
-                res.redirect('/');
-            } else {
-                var totalPages = Math.ceil(tutorialCount / pageSize);
-                var url = req.baseUrl + req.path;
-                var pagination = {
-                    'currentPage': page,
-                    'totalPages': totalPages,
-                    'url': url
-                };
-                res.render('tutorials/list', { 
-                    title: 'Tutorials',
-                    tutorials: tutorials,
-                    message: '',    
-                    moment: moment,
-                    pagination: pagination
-                });
-            }
-    });
-    
-    /*
-    Tutorial.count(query, function(err, count) {
-        if (err) {
-            console.log(err);
-        }   
-        Tutorial.find(query)
+    var queryString = req.query.q;
+    var query = { 'isPublished': true };
+    if (queryString) {
+        var regex = new RegExp(queryString, 'i');
+        var match = [
+            { 'title': regex },              
+            { 'content': regex },
+            { 'author.username': regex }
+        ];
+        query = {'isPublished': true, '$or': match };
+    }
+        
+    Tutorial.countAndFind(query)
             .sort({'createdOn': 'desc'})
             .skip((page - 1) * pageSize)
             .limit(pageSize)
-            .exec(function(err, tutorials) {
+            .exec(function(err, tutorials, tutorialCount) {
                 if (err) {
                     console.log(err);
                     req.flash('error', 'Something went wrong. Error: ' + err.message);
-                    res.redirect('/');
+                    res.redirect('/tutorials');
                 } else {
-                    var totalPages = Math.ceil(count / pageSize);
+                    var message = '';
+                    if (queryString && tutorialCount === 0) {
+                        message = 'Sorry, no matching tutorials were found.';
+                    } else if (queryString) {
+                        message = 'We found ' + tutorialCount + ' matching tutorials';
+                    }
+                    var totalPages = Math.ceil(tutorialCount / pageSize);
                     var url = req.baseUrl + req.path;
                     var pagination = {
                         'currentPage': page,
                         'totalPages': totalPages,
-                        'url': url
+                        'url': url,
+                        'q': queryString
                     };
+                    
                     res.render('tutorials/list', { 
                         title: 'Tutorials',
                         tutorials: tutorials,
-                        message: '',    
+                        message: message,
                         moment: moment,
                         pagination: pagination
                     });
                 }
             });
-    });
-    */
-}
-
-// GET /tutorials/search?q=query
-module.exports.search = function(req, res) {
-    var query = req.query.q;
-    var regex = new RegExp(query,'i');
-    var match = [
-        { 'title': regex },              
-        { 'content': regex },
-        { 'author.username': regex }
-    ];
-
-    Tutorial.find({'isPublished': true, '$or': match })
-                    .sort({'createdOn': 'desc'})
-                    .exec(function(err, tutorials) {
-                        if (err) {
-                            console.log(err);
-                            req.flash('error', 'Something went wrong. Error: ' + err.message);
-                            res.redirect('/tutorials');
-                        } else {
-                            var message = '';
-                            var count = tutorials.length;
-                            if (count === 0) {
-                                message = 'Sorry, no matching tutorials were found.';
-                            } else {
-                                message = 'We found ' + count + ' matching tutorials';
-                            }
-                            res.render('tutorials/list', { 
-                                title: 'Tutorials',
-                                tutorials: tutorials,
-                                message: message,
-                                moment: moment
-                            });
-                        }
-                    });
 }
 
 // GET: /tutorials/create
