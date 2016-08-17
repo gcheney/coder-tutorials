@@ -7,7 +7,8 @@
             <p>View our user provided selection of coding tutorials and advice from all over the world. If you know of a good tutorial that should be here, feel free to add it!</p>
             <p>
                 <% if (currentUser) { %>
-                    <a class="btn btn-primary btn-lg text-center" href="/tutorials/create">Create a New Tutorial</a>
+                    <a class="btn btn-success btn-lg text-center" href="/tutorials/create">Create a New Tutorial</a>
+                    <a class="btn btn-primary btn-lg text-center" href="/users/<%= currentUser.username %>">Manage Your Tutorials</a>
                 <% } else { %>
                     <div class="text-center">
                         <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Sign In</button>
