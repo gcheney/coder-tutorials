@@ -5,8 +5,6 @@ var tutorialsController = require('../controllers/tutorials');
 
 router.get('/', tutorialsController.index); 
 
-router.get('/search', tutorialsController.search);
-
 router.get('/create', authMiddleware.isAuthenticated, 
            tutorialsController.create);
 
