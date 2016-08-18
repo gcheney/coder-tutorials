@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var countAndFind = require('mongoose-count-and-find');
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new mongoose.Schema({
@@ -21,6 +20,5 @@ var UserSchema = new mongoose.Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose);
-UserSchema.plugin(countAndFind);
 
 module.exports = mongoose.model('User', UserSchema);
