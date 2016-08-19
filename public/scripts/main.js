@@ -78,7 +78,7 @@
         {
             $(W).scroll(function() {
                 var y = $(this).scrollTop();
-                if (y > 150) {
+                if (y > 200) {
                     $('.navbar').addClass('navbar-default');
                     $('.navbar').removeClass('navbar-inverse');
                 } else {
