@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <div class="text-center">
-                <h1>Edit Your Review for <%= tutorial.name %></h1>
+                <h1>Edit Your Review for <%= tutorial.title %></h1>
                 <p class="text-center">We support <a href="https://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown</a></p>
             </div>
             <div class="well clearfix">
@@ -14,10 +14,10 @@
                       <textarea class="form-control" rows="5" name="markdown" id="markdown" required><%= review.markdown %></textarea>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Update Review</button>
+                        <button class="btn btn-md btn-success pull-right" type="submit">Update Review</button>
                     </div>
                 </form>
-                <a class="btn btn-primary" href="/tutorials/<%= tutorial._id %>"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
+                <a class="btn btn-primary btn-md pull-left" href="/tutorials/<%= tutorial._id %>"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
             </div>
         </div>
         
