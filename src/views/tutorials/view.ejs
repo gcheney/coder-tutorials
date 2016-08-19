@@ -31,30 +31,31 @@
                 </div>
             </div>
             <div class="well clearfix">
+                <h2 class="text-center">Reviews for <%= tutorial.title %></h2>
                 <% if (tutorial.reviews.length === 0) { %>
                     <div class="text-center">
                         <h3>This Tutorial doesn't have any reviews...yet.</h3>
                     </div>
                 <% } else { %>
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="well clearfix">
-                                <form action="/tutorials/<%= tutorial._id %>/reviews" method="POST" id="review-form">
-                                    <div class="form-group">
-                                      <label for="markdown">Your Review:</label>
-                                      <textarea class="form-control" rows="10" name="markdown" id="markdown" required></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <button class="btn btn-md btn-default pull-left" id="btn-preview" data-toggle="modal" data-target="#preview-modal">Preview</button>
-                                        <button class="btn btn-md btn-success pull-right" type="submit">Add Review</button>
-                                    </div>
-                                </form>
+                    <% if (currentUser) { %>
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="well clearfix">
+                                    <form action="/tutorials/<%= tutorial._id %>/reviews" method="POST" id="review-form">
+                                        <div class="form-group">
+                                          <label for="markdown">Your Review:</label>
+                                          <textarea class="form-control" rows="10" name="markdown" id="markdown" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-md btn-default pull-left" id="btn-preview" data-toggle="modal" data-target="#preview-modal">Preview</button>
+                                            <button class="btn btn-md btn-success pull-right" type="submit">Add Review</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
+                            <% include ../partials/preview-modal %>
                         </div>
-
-                        <% include ../partials/preview-modal %>
-
-                    </div>
+                    <% } %>
                     <% tutorial.reviews.forEach(function(review){ %>
                         <br />
                         <div class="row">
