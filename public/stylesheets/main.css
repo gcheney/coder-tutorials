@@ -1,5 +1,11 @@
 /* General styles */
 
+body { 
+    /* for navbar-fixed-top */
+    padding-top: 70px; 
+}
+
+
 #delete-form {
     display: inline;
 }
@@ -89,6 +95,13 @@ label.error {
     border-radius: 0 !important;
 }
 
+.navbar-inverse, .navbar-default {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 .form-control { 
     border-radius: 4px;
 }
@@ -131,4 +144,12 @@ label.error {
     }
     
 }
+
+@media screen and (max-width: 768px) {
+    /* for bootstrap navbar-fixed-top */
+    body { 
+        padding-top: 40px; 
+    }
+}
+
 

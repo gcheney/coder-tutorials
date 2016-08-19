@@ -74,6 +74,19 @@
                 flashFadeout();
             });
         },
+        changeNavbarOnScroll: function() 
+        {
+            $(W).scroll(function() {
+                var y = $(this).scrollTop();
+                if (y > 150) {
+                    $('.navbar').addClass('navbar-default');
+                    $('.navbar').removeClass('navbar-inverse');
+                } else {
+                    $('.navbar').removeClass('navbar-default');
+                    $('.navbar').addClass('navbar-inverse');
+                }
+            });
+        },
         initFormValidation: function()
         {
             // sign up form validation rules
@@ -210,6 +223,7 @@
         JQUERY.UTIL.initDeleteConfirmations();
         JQUERY.UTIL.initFlashMessageActions();
         JQUERY.UTIL.initFormValidation();
+        JQUERY.UTIL.changeNavbarOnScroll();
         JQUERY.UTIL.btnPreviewAction();
     });
 
