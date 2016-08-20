@@ -15,7 +15,8 @@ module.exports.doSignup = function(req, res) {
             req.flash('error', err.message);
             return res.redirect('/account/signup');
         }
-        passport.authenticate('local')(req, res, function(){
+        console.log('New user signed up: ' + user);
+        passport.authenticate('local')(req, res, function() {
             res.redirect('/account/manage');
         });
     });
