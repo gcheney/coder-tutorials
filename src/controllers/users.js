@@ -1,4 +1,5 @@
 var moment = require('moment');
+var User = require('../models/user');
 var Tutorial = require('../models/tutorial');
 
 // GET: /user/username
