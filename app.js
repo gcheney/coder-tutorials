@@ -6,10 +6,9 @@ var express             = require('express'),
     mongoose            = require('mongoose'),
     passport            = require('passport'),
     expressSession      = require('express-session'),
-    cookieParser        = require('cookie-parser')
-    LocalStrategy       = require('passport-local'),
+    cookieParser        = require('cookie-parser'),
     methodOverride      = require('method-override'),
-    User                = require('./src/models/user'),
+    localAuth           = require('./src/auth/local'),
     homeRoutes          = require('./src/routes'),
     accountRoutes       = require('./src/routes/account'),
     tutorialRoutes      = require('./src/routes/tutorials'),
@@ -32,7 +31,7 @@ app.use(flash());
 require('./src/data/db');
 
 
-// ---------- PASSPORT CONFIGURATION ----------- //
+// ---------- SESSION CONFIGURATION ----------- //
 var secret = 'topsecret';
 if (process.env.NODE_ENV === 'production') {
     secret = process.env.SESSION_SECRET;
@@ -44,15 +43,13 @@ app.use(expressSession({
     saveUninitialized : false
 }));
 
+// ---------- PASSPORT AUTH CONFIGURATION ----------- //
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+localAuth();
 
-//give every view the currentUser varaiable with 
-//the value of req.user
-app.use(function(req, res, next){
+// setup local variables for views
+app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     res.locals.error = req.flash('error');
     res.locals.success = req.flash('success');
@@ -62,6 +59,7 @@ app.use(function(req, res, next){
 
 // ------------------- SETUP ROUTES ------------------------ //
 app.use('/', homeRoutes);
+app.use('/users', userRoutes);
 app.use('/account', accountRoutes);
 app.use('/tutorials', tutorialRoutes);
 app.use('/tutorials/:tutorial_id/reviews', function(req,res,next) {
@@ -69,7 +67,6 @@ app.use('/tutorials/:tutorial_id/reviews', function(req,res,next) {
     req.tutorial_id = req.params.tutorial_id;
     next();
 }, reviewRoutes);
-app.use('/users', userRoutes);
 
 
 // ------------------- 404 HANDLER ------------------------ //
