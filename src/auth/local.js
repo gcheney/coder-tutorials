@@ -5,5 +5,6 @@ var initUser = require('./init');
 
 module.exports = function() {
     passport.use(new LocalStrategy(User.authenticate()));
+    // serialize user into the session
     initUser();
 };
