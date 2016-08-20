@@ -6,7 +6,7 @@ var initUser = require('./init');
 
 // not valid - used to run app without github oAuth errors
 var strategy = {
-    clientID: '4c34e57b18ed6d68091a',
+    clientID: '34tggg3334t4333',
     clientSecret: '0c9663c587bfe44d625ce7aef496ca1ff3e58198',
     callbackURL: 'http://127.0.0.1:3000/account/github/auth'
 };
