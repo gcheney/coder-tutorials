@@ -43,8 +43,10 @@ module.exports.doCreate = function(req, res) {
             console.log(err);
             req.flash('error', 'Something went wrong. Error: ' + err.message);
             res.redirect('/tutorials/' + req.tutorial_id);
-       } else {
-           
+       } else if (tutorial.author.id.equals(req.user._id)) {
+            req.flash('error', 'You are unable to review your own tutorial.');
+            res.redirect('/tutorials/' + req.tutorial_id);
+       } else {        
             var markdown = req.body.markdown;
             var content = marked(markdown);
             var newReview = { 
@@ -53,23 +55,23 @@ module.exports.doCreate = function(req, res) {
             };
             
             Review.create(newReview, function(err, review) {
-               if (err) {
+                if (err) {
                    console.log(err);
                    req.flash('error', 'Something went wrong. Error: ' + err.message);
-               } else {
-                   //add username and id to review
-                   review.author.id = req.user._id;
-                   review.author.username = req.user.username;
-                   console.log('New review added: ' + review);
-                   review.save();
+                } else {
+                    // add username and id to review
+                    review.author.id = req.user._id;
+                    review.author.username = req.user.username;
+                    console.log('New review added: ' + review);
+                    review.save();
 
-                   //save review
-                   tutorial.reviews.push(review);
-                   tutorial.save();
-                   console.log('New tutorial added: ' + tutorial);
-                   req.flash('success', 'Your review has been successfully saved.');
-                   res.redirect('/tutorials/' + tutorial._id);
-               }
+                    // save review to tutorial
+                    tutorial.reviews.push(review);
+                    tutorial.save();
+                    console.log('New tutorial added: ' + tutorial);
+                    req.flash('success', 'Your review has been successfully saved.');
+                    res.redirect('/tutorials/' + tutorial._id);  
+                }
             });
         }
     });
