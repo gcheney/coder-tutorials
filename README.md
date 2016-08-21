@@ -9,6 +9,7 @@ Coder Tutorials is a platform for providing tutorials on coding and software dev
 It conatins the following features:
 
 * Local user authentication
+* Authentication through Github using OAuth 2.0
 * User accounts with details and password updates
 * Ability to Create, Read, Update and Delete tutorials using [Markdown](https://daringfireball.net/projects/markdown/syntax)
 * Ability to Create, Read, Update and Delete reviews of tutorials using [Markdown](https://daringfireball.net/projects/markdown/syntax)
