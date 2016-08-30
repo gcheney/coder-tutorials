@@ -157,7 +157,7 @@ module.exports.edit = function(req, res){
 
 // UPDATE ROUTE
 // PUT: /tutorials/:id
-module.exports.doUpdate = function(req, res) {
+module.exports.update = function(req, res) {
     var title = req.body.title;
     var description = req.body.description;
     var markdown = req.body.markdown;
@@ -198,7 +198,7 @@ module.exports.doUpdate = function(req, res) {
 
 // DESTROY ROUTE
 // DELETE: /tutorials/:id
-module.exports.doDelete = function(req, res){
+module.exports.delete = function(req, res){
     Tutorial.findByIdAndRemove(req.params.id, function(err){
         if (err){
             console.log(err);

@@ -7,15 +7,15 @@ router.get('/new', authMiddleware.isAuthenticated,
            reviewsController.new);
 
 router.post('/', authMiddleware.isAuthenticated, 
-            reviewsController.doCreate);
+            reviewsController.create);
 
 router.get('/:review_id/edit', authMiddleware.checkReviewOwnership, 
            reviewsController.edit);
 
 router.put('/:review_id', authMiddleware.checkReviewOwnership, 
-           reviewsController.doUpdate);
+           reviewsController.update);
 
 router.delete('/:review_id', authMiddleware.checkReviewOwnership, 
-              reviewsController.doDelete);
+              reviewsController.delete);
 
 module.exports = router;

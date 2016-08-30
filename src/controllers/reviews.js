@@ -37,7 +37,7 @@ module.exports.new = function(req, res) {
 }
 
 //POST: /tutorials/:id/reviews/
-module.exports.doCreate = function(req, res) {
+module.exports.create = function(req, res) {
     Tutorial.findById(req.tutorial_id, function(err, tutorial) {
        if (err) {
             console.log(err);
@@ -102,7 +102,7 @@ module.exports.edit = function(req, res) {
 }
 
 // POST: tutorials/:id/reviews/:review_id
-module.exports.doUpdate = function(req, res) {
+module.exports.update = function(req, res) {
     var markdown = req.body.markdown;
     var content = marked(markdown);
     
@@ -125,7 +125,7 @@ module.exports.doUpdate = function(req, res) {
 }
 
 // DELETE /tutorials/:id/reviews/:review_id
-module.exports.doDelete = function(req, res) {
+module.exports.delete = function(req, res) {
     Review.findByIdAndRemove(req.params.review_id, function(err) {
         if (err) {
             console.log(err);

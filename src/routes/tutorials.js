@@ -17,9 +17,9 @@ router.get('/:id/edit', authMiddleware.checkTutorialOwnership,
            tutorialsController.edit);
 
 router.put('/:id', authMiddleware.checkTutorialOwnership, 
-           tutorialsController.doUpdate);
+           tutorialsController.update);
 
 router.delete('/:id', authMiddleware.checkTutorialOwnership, 
-              tutorialsController.doDelete);
+              tutorialsController.delete);
 
 module.exports = router;
