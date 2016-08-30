@@ -116,8 +116,10 @@ module.exports.doCreate = function(req, res){
 //GET: /tutorials/:id 
 module.exports.view = function(req, res){
     Tutorial.findById(req.params.id)
-            .populate('reviews')
-            .exec(function(err, tutorial){
+            .populate({ 
+                path: 'reviews',
+                options: { sort: {'createdOn': 'desc'}}
+            }).exec(function(err, tutorial){
                 if (err){
                     console.log(err);
                     req.flash('error', 'Something went wrong. Error: ' + err.message);
