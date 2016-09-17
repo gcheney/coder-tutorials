@@ -32,7 +32,7 @@
                     </div>
                 </form>
                 <form action="/tutorials/<%= tutorial._id %>/?_method=DELETE" method="POST" id="delete-form">
-                    <button class="btn btn-danger pull-right" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete Tutorial</button>
+                    <button class="btn btn-danger pull-right" id="tutorial-delete" data-toggle="modal" data-target="#confirm-delete" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete Tutorial</button>
                 </form>  
             
                 <% include ../partials/confirm-modal %>
