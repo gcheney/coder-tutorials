@@ -8,10 +8,18 @@
     
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h4 class="text-center text-muted">Search by Title, Content, or Author</h4>
             <form action="/tutorials/" method="GET">
-                <div id="tutorial-search-input">
-                    <div class="input-group col-md-12">
+                <div id="tutorial-search-input col-md-12">
+                    <h4 class="text-center text-muted">Sort By</h4>
+                    <div class="form-group">
+                        <select class="form-control" id="sort" name="sort">
+                            <option>Most Recent</option>
+                            <option>Oldest</option>
+                            <option>Most Discussed</option>
+                        </select>
+                    </div>
+                    <h4 class="text-center text-muted">Search by Title, Content, or Author</h4>
+                    <div class="input-group">
                         <input type="text" class="form-control input-lg" name="q" placeholder="Find a Tutorial" />
                         <span class="input-group-btn">
                             <button class="btn btn-info btn-lg" type="submit">
