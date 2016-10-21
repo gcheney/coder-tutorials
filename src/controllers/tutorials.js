@@ -24,6 +24,7 @@ const pageSize = 5;
 module.exports.index = function(req, res) {
     var page = req.query.page || 1;
     var queryString = req.query.q;
+
     var query = { 'isPublished': true };
     if (queryString) {
         var regex = new RegExp(queryString, 'i');
@@ -34,41 +35,52 @@ module.exports.index = function(req, res) {
         ];
         query = {'isPublished': true, '$or': match };
     }
+
+    var sort = req.query.sort;
+    var sortQuery = {};
+    if (sort === 'Most+Discussed') {
+        sortQuery = {'reviews.length': 'desc'};
+    } else if (sort === 'Oldest') {
+        sortQuery = {'createdOn': 'asc'};
+    } else {
+        sortQuery = {'createdOn': 'desc'};
+    }
         
-    Tutorial.countAndFind(query)
-            .sort({'createdOn': 'desc'})
-            .skip((page - 1) * pageSize)
-            .limit(pageSize)
-            .exec(function(err, tutorials, tutorialCount) {
-                if (err) {
-                    console.log(err);
-                    req.flash('error', 'Something went wrong. Error: ' + err.message);
-                    res.redirect('/tutorials');
-                } else {
-                    var message = '';
-                    if (queryString && tutorialCount === 0) {
-                        message = 'Sorry, no matching tutorials were found.';
-                    } else if (queryString) {
-                        message = 'We found ' + tutorialCount + ' matching tutorials';
-                    }
-                    var totalPages = Math.ceil(tutorialCount / pageSize);
-                    var url = req.baseUrl + req.path;
-                    var pagination = {
-                        'currentPage': page,
-                        'totalPages': totalPages,
-                        'url': url,
-                        'q': queryString
-                    };
-                    
-                    res.render('tutorials/list', { 
-                        title: 'Tutorials',
-                        tutorials: tutorials,
-                        message: message,
-                        moment: moment,
-                        pagination: pagination
-                    });
+    Tutorial
+        .countAndFind(query)
+        .sort(sortQuery)
+        .skip((page - 1) * pageSize)
+        .limit(pageSize)
+        .exec(function(err, tutorials, tutorialCount) {
+            if (err) {
+                console.log(err);
+                req.flash('error', 'Something went wrong. Error: ' + err.message);
+                res.redirect('/tutorials');
+            } else {
+                var message = '';
+                if (queryString && tutorialCount === 0) {
+                    message = 'Sorry, no matching tutorials were found.';
+                } else if (queryString) {
+                    message = 'We found ' + tutorialCount + ' matching tutorials';
                 }
-            });
+                var totalPages = Math.ceil(tutorialCount / pageSize);
+                var url = req.baseUrl + req.path;
+                var pagination = {
+                    'currentPage': page,
+                    'totalPages': totalPages,
+                    'url': url,
+                    'q': queryString
+                };
+                
+                res.render('tutorials/list', { 
+                    title: 'Tutorials',
+                    tutorials: tutorials,
+                    message: message,
+                    moment: moment,
+                    pagination: pagination
+                });
+            }
+        });
 }
 
 // GET: /tutorials/create
@@ -115,29 +127,31 @@ module.exports.doCreate = function(req, res){
 
 //GET: /tutorials/:id 
 module.exports.view = function(req, res){
-    Tutorial.findById(req.params.id)
-            .populate({ 
-                path: 'reviews',
-                options: { sort: {'createdOn': 'desc'}}
-            }).exec(function(err, tutorial){
-                if (err){
-                    console.log(err);
-                    req.flash('error', 'Something went wrong. Error: ' + err.message);
-                    res.redirect('/tutorials');
+    Tutorial
+        .findById(req.params.id)
+        .populate({ 
+            path: 'reviews',
+            options: { sort: {'createdOn': 'desc'}}
+        })
+        .exec(function(err, tutorial){
+            if (err){
+                console.log(err);
+                req.flash('error', 'Something went wrong. Error: ' + err.message);
+                res.redirect('/tutorials');
+            } else {
+                var user = req.user;
+                if (tutorial.isPublished || (user && tutorial.author.id.equals(user._id))) {
+                    res.render('tutorials/view', { 
+                        tutorial: tutorial,
+                        moment: moment,
+                        title: "View Tutorial"
+                    });
                 } else {
-                    var user = req.user;
-                    if (tutorial.isPublished || (user && tutorial.author.id.equals(user._id))) {
-                        res.render('tutorials/view', { 
-                            tutorial: tutorial,
-                            moment: moment,
-                            title: "View Tutorial"
-                        });
-                    } else {
-                        req.flash('error', 'You do not have permission to access this page.');
-                        res.redirect('/tutorials');
-                    }
+                    req.flash('error', 'You do not have permission to access this page.');
+                    res.redirect('/tutorials');
                 }
-            });
+            }
+        });
 }
 
 // GET: /tutorials/:id/edit
@@ -183,17 +197,18 @@ module.exports.update = function(req, res) {
         editedOn: Date.now()
     };
 
-    Tutorial.findByIdAndUpdate(req.params.id, updatedTutorial, function(err, tutorial) {
-       if (err) {
-           console.log(err);
-           req.flash('error', 'Something went wrong. Error: ' + err.message);
-           res.redirect('/tutorials/edit/' + req.params.id);
-       } else {
-           console.log('Tutorial updated: ' + tutorial);
-           req.flash('success', message);
-           res.redirect('/tutorials/' + tutorial.id);
-       }
-    });
+    Tutorial
+        .findByIdAndUpdate(req.params.id, updatedTutorial, function(err, tutorial) {
+            if (err) {
+                console.log(err);
+                req.flash('error', 'Something went wrong. Error: ' + err.message);
+                res.redirect('/tutorials/edit/' + req.params.id);
+            } else {
+                console.log('Tutorial updated: ' + tutorial);
+                req.flash('success', message);
+                res.redirect('/tutorials/' + tutorial.id);
+            }
+        });
 }
 
 // DESTROY ROUTE
