@@ -21,13 +21,20 @@
     
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <% if (currentUser && currentUser.username === user.username) { %>
-                <h4 class="text-center text-muted">Search Your Tutorials</h4>
-            <% } else { %>
-                <h4 class="text-center text-muted">Search <%= user.username %>'s Tutorials</h4>
-            <% } %>
             <form action="/users/<%= user.username %>" method="GET">
+                <h4 class="text-center text-muted">Sort By</h4>
+                <div class="form-group">
+                    <select class="form-control" id="sort" name="sort">
+                        <option>Most Recent</option>
+                        <option>Oldest</option>
+                    </select>
+                </div>
                 <div id="tutorial-search-input">
+                    <% if (currentUser && currentUser.username === user.username) { %>
+                        <h4 class="text-center text-muted">Search Your Tutorials</h4>
+                    <% } else { %>
+                        <h4 class="text-center text-muted">Search <%= user.username %>'s Tutorials</h4>
+                    <% } %>
                     <div class="input-group col-md-12">
                         <input type="text" class="form-control input-lg" name="q" placeholder="Find a Tutorial" />
                         <span class="input-group-btn">
