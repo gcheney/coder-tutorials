@@ -18,7 +18,7 @@ marked.setOptions({
 });
 
 // for pagination
-const pageSize = 5;
+const pageSize = 10;
 
 // GET: /tutorials
 module.exports.index = function(req, res) {
@@ -38,7 +38,7 @@ module.exports.index = function(req, res) {
 
     var sort = req.query.sort;
     var sortQuery = {};
-    if (sort === 'Most+Discussed') {
+    if (sort === 'Most+Discussed' || sort === 'Most%20Discussed') {
         sortQuery = {'reviews.length': 'desc'};
     } else if (sort === 'Oldest') {
         sortQuery = {'createdOn': 'asc'};
@@ -69,7 +69,8 @@ module.exports.index = function(req, res) {
                     'currentPage': page,
                     'totalPages': totalPages,
                     'url': url,
-                    'q': queryString
+                    'q': queryString,
+                    'sort': sort
                 };
                 
                 res.render('tutorials/list', { 
