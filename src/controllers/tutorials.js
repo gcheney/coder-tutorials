@@ -38,9 +38,7 @@ module.exports.index = function(req, res) {
 
     var sort = req.query.sort;
     var sortQuery = {};
-    if (sort === 'Newest+Reviews' || sort === 'Newest%20Reviews') {
-        sortQuery = {'reviews': 'desc'};
-    } else if (sort === 'Oldest') {
+    if (sort === 'Oldest') {
         sortQuery = {'createdOn': 'asc'};
     } else {
         sortQuery = {'createdOn': 'desc'};
