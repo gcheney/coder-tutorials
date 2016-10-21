@@ -18,7 +18,7 @@ marked.setOptions({
 });
 
 // for pagination
-const pageSize = 10;
+const pageSize = 5;
 
 // GET: /tutorials
 module.exports.index = function(req, res) {
@@ -38,8 +38,8 @@ module.exports.index = function(req, res) {
 
     var sort = req.query.sort;
     var sortQuery = {};
-    if (sort === 'Most+Discussed' || sort === 'Most%20Discussed') {
-        sortQuery = {'reviews.length': 'desc'};
+    if (sort === 'Newest+Reviews' || sort === 'Newest%20Reviews') {
+        sortQuery = {'reviews': 'desc'};
     } else if (sort === 'Oldest') {
         sortQuery = {'createdOn': 'asc'};
     } else {
