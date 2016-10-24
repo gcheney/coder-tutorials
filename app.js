@@ -32,13 +32,13 @@ require('./src/data/db');
 
 
 // ---------- SESSION CONFIGURATION ----------- //
-var secret = 'topsecret';
+var sessionSecret = 'topsecret';
 if (process.env.NODE_ENV === 'production') {
-    secret = process.env.SESSION_SECRET;
+    sessionSecret = process.env.SESSION_SECRET;
 }
 
 app.use(expressSession({
-    secret: 'topsecret',
+    secret: sessionSecret,
     resave: false, 
     saveUninitialized : false
 }));
