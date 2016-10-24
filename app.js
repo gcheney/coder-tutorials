@@ -1,6 +1,7 @@
 var express             = require('express'),
     app                 = express(),
-    morgan              = require('morgan')
+    morgan              = require('morgan'),
+    compress            = require('compression'),
     bodyParser          = require('body-parser'),
     flash               = require('connect-flash'),
     mongoose            = require('mongoose'),
@@ -18,12 +19,17 @@ var express             = require('express'),
 // ------------------- INITIAL APP SETTINGS ------------------------ //
 var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', './src/views');
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
-app.use(morgan('combined'));
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+} else if (process.env.NODE_ENV === 'production') {
+    app.use(compress());
+}
 app.use(flash());
 
 
