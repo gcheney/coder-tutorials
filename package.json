@@ -20,6 +20,7 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.3.4",
     "express": "^4.13.4",
+    "express-robots": "^0.1.6",
     "express-session": "^1.13.0",
     "highlight.js": "^9.6.0",
     "marked": "^0.3.5",

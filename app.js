@@ -4,6 +4,7 @@ var express             = require('express'),
     compress            = require('compression'),
     bodyParser          = require('body-parser'),
     flash               = require('connect-flash'),
+    robots              = require('express-robots'),
     mongoose            = require('mongoose'),
     passport            = require('passport'),
     expressSession      = require('express-session'),
@@ -31,7 +32,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(compress());
 }
 app.use(flash());
-
+app.use(robots({UserAgent: '*', Disallow: '/account/'}));
 
 // ---------- DATABASE CONFIGURATION ----------- //
 require('./src/data/db');
