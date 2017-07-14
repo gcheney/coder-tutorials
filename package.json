@@ -1,6 +1,9 @@
 {
   "name": "coder-tutorials",
   "version": "1.0.0",
+  "engines": {
+    "node": "4.8.4"
+  },
   "description": "Coder Tutorials is an app where you can share tutorials on coding tricks and tips.",
   "main": "app.js",
   "scripts": {
