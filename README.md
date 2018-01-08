@@ -6,7 +6,7 @@ Coder Tutorials is a platform for providing tutorials on coding and software dev
 
 [View Live Demo](https://codertutorials.xyz/) 
 
-It conatins the following features:
+It contains the following features:
 
 * Local user authentication
 * Authentication through Github using OAuth 2.0
